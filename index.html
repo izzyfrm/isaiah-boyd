@@ -6,6 +6,9 @@
 <title>Isaiah Boyd</title>
 <meta name="description" content="Isaiah Boyd is a high school developer building websites and applications. Available for freelance projects.">
 <meta name="theme-color" content="#000000">
+<meta property="og:title" content="Isaiah Boyd">
+<meta property="og:description" content="High school developer building websites, apps and AI tools.">
+<meta property="og:type" content="website">
 <link rel="canonical" href="https://isaiahboyd.xyz/">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +16,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#000000; --surface:#0c0c0d; --hover:#121214; --text:#f2f2f3; --muted:#8e8e93;
-    --line:#1e1e21; --ok:#3ddc84;
+    --bg:#000; --surface:#0b0b0c; --hover:#111113; --text:#f2f2f3; --muted:#8e8e93; --soft:#c9c9ce;
+    --line:#1e1e21; --line2:#2e2e33; --ok:#3ddc84;
     --g0:#141416; --g1:#0e4429; --g2:#006d32; --g3:#26a641; --g4:#39d353;
     --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --ease:cubic-bezier(.2,.8,.2,1);
@@ -25,213 +28,296 @@
   body{
     background:var(--bg);color:var(--text);
     font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-    letter-spacing:-.011em;-webkit-font-smoothing:antialiased;
+    letter-spacing:-.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none}
   a:focus-visible,button:focus-visible{outline:2px solid var(--text);outline-offset:3px;border-radius:8px}
   ::selection{background:#f2f2f3;color:#000}
-  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
   .inv{filter:invert(1)}
+  .ic{width:16px;height:16px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* Background: faint dot grid, brighter around the cursor */
+  .bg{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.16) 1px,transparent 1.2px);background-size:28px 28px}
+  .bg.base{opacity:.35;-webkit-mask-image:linear-gradient(#000,transparent 70%);mask-image:linear-gradient(#000,transparent 70%)}
+  .bg.glow{-webkit-mask-image:radial-gradient(260px circle at var(--mx,50%) var(--my,30%),#000,transparent);mask-image:radial-gradient(260px circle at var(--mx,50%) var(--my,30%),#000,transparent)}
+
+  /* Scroll progress */
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:20;background:var(--text);transform-origin:0 50%;transform:scaleX(0)}
 
   /* Navigation */
-  nav{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  nav{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
-  nav .brand{font-weight:600;font-size:15px}
-  nav .right{display:flex;align-items:center;gap:4px;margin-right:-10px}
-  nav .right a{font-size:14px;color:var(--muted);padding:8px 10px;border-radius:8px;transition:color .2s}
-  nav .right a:hover{color:var(--text)}
+  nav .brand{font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px}
+  nav .brand b{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--text);color:#000;font:600 11px var(--mono);letter-spacing:0}
+  nav .right{display:flex;align-items:center;gap:2px;margin-right:-10px}
+  nav .right a{position:relative;font-size:14px;color:var(--muted);padding:8px 10px;transition:color .2s}
+  nav .right a::after{content:"";position:absolute;left:10px;right:10px;bottom:2px;height:1px;background:var(--text);transform:scaleX(0);transition:transform .3s var(--ease)}
+  nav .right a:hover,nav .right a.on{color:var(--text)}
+  nav .right a.on::after{transform:scaleX(1)}
 
   /* Hero */
-  header{padding:80px 0 64px}
-  header > *{animation:rise .7s var(--ease) both}
-  header > :nth-child(2){animation-delay:.06s}
-  header > :nth-child(3){animation-delay:.12s}
-  header > :nth-child(4){animation-delay:.18s}
-  header > :nth-child(5){animation-delay:.24s}
-  header > :nth-child(6){animation-delay:.3s}
-  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .me{width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center 30%;background:var(--surface);border:1px solid var(--line);display:block}
-  .status{display:flex;align-items:center;gap:8px;margin-top:28px;color:var(--muted);font-size:14px}
+  header{padding:96px 0 72px}
+  .intro-row{display:flex;align-items:center;gap:20px;animation:rise .7s var(--ease) both}
+  .me-ring{position:relative;width:88px;height:88px;border-radius:50%;padding:2px;flex-shrink:0;
+    background:conic-gradient(from 0deg,var(--line),var(--text),var(--line) 40%,var(--line));animation:spin 6s linear infinite}
+  .me{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 30%;background:var(--surface);display:block;border:3px solid var(--bg)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .me-ring .me{animation:spin 6s linear infinite reverse}
+  .status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px}
   .status i{position:relative;width:7px;height:7px;border-radius:50%;background:var(--ok)}
   .status i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--ok);animation:ping 2.4s ease-out infinite}
   @keyframes ping{from{opacity:.6;transform:scale(1)}to{opacity:0;transform:scale(3)}}
-  h1{margin-top:12px;font-size:clamp(36px,7vw,52px);font-weight:700;letter-spacing:-.035em;line-height:1.05}
-  .title{margin-top:10px;font-size:clamp(17px,2.4vw,19px);color:var(--muted);letter-spacing:-.015em}
-  .intro{margin-top:20px;max-width:580px;color:#c9c9ce}
-  .cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
-  .btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:10px;font-size:15px;font-weight:500;border:1px solid var(--line);transition:background .2s,border-color .2s,transform .2s var(--ease)}
-  .btn:hover{background:var(--hover);border-color:#2e2e33}
-  .btn:active{transform:scale(.98)}
+  h1{margin-top:32px;font-size:clamp(44px,10vw,84px);font-weight:700;letter-spacing:-.045em;line-height:1;animation:rise .7s .08s var(--ease) both}
+  h1 .ch{display:inline-block;opacity:0;transform:translateY(.5em);animation:char .7s var(--ease) forwards;animation-delay:calc(var(--i) * 28ms + 120ms)}
+  h1 .sp{display:inline-block;width:.26em}
+  @keyframes char{to{opacity:1;transform:none}}
+  .title{margin-top:20px;min-height:1.6em;font:400 clamp(15px,2.4vw,18px) var(--mono);color:var(--muted);letter-spacing:-.02em;animation:rise .7s .16s var(--ease) both}
+  .title .pre{color:var(--ok)}
+  .title .caret{display:inline-block;width:.55ch;height:1.05em;margin-left:2px;vertical-align:-.15em;background:var(--text);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .intro{margin-top:24px;max-width:600px;color:var(--soft);animation:rise .7s .24s var(--ease) both}
+  .cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px;animation:rise .7s .32s var(--ease) both}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;font-size:15px;font-weight:500;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;font-family:inherit;
+    transition:background .2s,border-color .2s,transform .25s var(--ease)}
+  .btn:hover{background:var(--hover);border-color:#47474d}
+  .btn:active{transform:scale(.97)!important}
   .btn.primary{background:var(--text);color:#000;border-color:var(--text)}
   .btn.primary:hover{background:#fff;border-color:#fff}
   .btn svg,.btn img{width:16px;height:16px}
 
+  .scrollcue{display:flex;align-items:center;gap:10px;margin-top:64px;color:var(--muted);font:12px var(--mono);animation:rise .7s .5s var(--ease) both}
+  .scrollcue i{position:relative;width:1px;height:36px;background:var(--line2);overflow:hidden}
+  .scrollcue i::after{content:"";position:absolute;left:0;top:0;width:1px;height:14px;background:var(--text);animation:drop 1.8s var(--ease) infinite}
+  @keyframes drop{from{transform:translateY(-14px)}to{transform:translateY(36px)}}
+
   /* Sections */
-  section{padding:56px 0;border-top:1px solid var(--line)}
-  h2{font-size:14px;font-weight:500;color:var(--muted);margin-bottom:24px}
-  .lead{color:#c9c9ce;max-width:580px}
-  .note{margin-top:16px;font-size:13px;color:var(--muted)}
-  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px;font:500 13px var(--mono);color:var(--muted);letter-spacing:-.01em}
+  .eyebrow span{color:var(--text)}
+  .eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+  .lead{color:var(--soft);max-width:600px}
+  .note{margin-top:20px;font-size:13px;color:var(--muted)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+
+  /* Spotlight cards: a soft highlight follows the pointer */
+  .spot{position:relative;overflow:hidden}
+  .spot::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+    background:radial-gradient(320px circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.075),transparent 65%)}
+  .spot:hover::before{opacity:1}
+  .spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;padding:1px;
+    background:radial-gradient(220px circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.45),transparent 70%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+  .spot:hover::after{opacity:1}
 
   /* Impact */
   .stats{display:grid;grid-template-columns:repeat(3,1fr)}
-  .stat{padding-left:20px;border-left:1px solid var(--line)}
+  .stat{padding-left:28px;border-left:1px solid var(--line)}
   .stat:first-child{padding-left:0;border-left:0}
-  .stat b{display:block;font-size:28px;font-weight:500;line-height:1.2}
+  .stat b{display:block;font-size:clamp(30px,5vw,44px);font-weight:500;line-height:1.15}
   .stat span{font-size:13px;color:var(--muted)}
 
   /* Rows (projects, repositories) */
-  .rows{display:flex;flex-direction:column;margin:0 -12px}
-  .row{display:flex;align-items:center;gap:16px;padding:12px;border-radius:12px;transition:background .2s}
-  .row:hover{background:var(--hover)}
-  .row .ico{width:40px;height:40px;border-radius:10px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;flex-shrink:0}
-  .row .ico img{width:20px;height:20px;border-radius:4px}
-  .row .txt{flex:1;min-width:0}
+  .rows{display:flex;flex-direction:column;gap:8px}
+  .row{display:flex;align-items:center;gap:16px;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);
+    transition:border-color .25s,transform .35s var(--ease)}
+  .row:hover{border-color:var(--line2);transform:translateY(-2px)}
+  .row .idx{font:12px var(--mono);color:#55555b;width:20px;flex-shrink:0;transition:color .2s}
+  .row:hover .idx{color:var(--text)}
+  .row .ico{width:44px;height:44px;border-radius:11px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;flex-shrink:0}
+  .row .ico img{width:22px;height:22px;border-radius:4px}
+  .row .txt{flex:1;min-width:0;position:relative;z-index:1}
   .row .name{font-weight:600;display:block}
   .row .desc{color:var(--muted);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .row .metric{font-size:13px;color:var(--muted);white-space:nowrap;text-align:right}
-  .row .metric b{display:block;color:var(--text);font-size:14px;font-weight:500}
-  .row .arr{color:var(--muted);transition:transform .25s var(--ease),color .2s}
-  .row:hover .arr{transform:translateX(3px);color:var(--text)}
+  .row .metric{position:relative;z-index:1;font-size:13px;color:var(--muted);white-space:nowrap;text-align:right}
+  .row .metric b{display:block;color:var(--text);font-size:15px;font-weight:500}
+  .row .arr{position:relative;z-index:1;color:var(--muted);transition:transform .3s var(--ease),color .2s}
+  .row:hover .arr{transform:translate(3px,-3px);color:var(--text)}
+  .row .ico,.row .idx{position:relative;z-index:1}
+  .tag{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:99px;border:1px solid var(--line2);font:500 10px var(--mono);color:var(--ok);vertical-align:2px;letter-spacing:.02em;text-transform:uppercase}
 
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:48px}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--line);font-size:14px;font-weight:500}
+  .chip{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:9px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:500;
+    transition:transform .3s var(--ease),border-color .2s,background .2s}
+  .chip:hover{transform:translateY(-3px);border-color:var(--line2);background:var(--hover)}
   .chip img{width:16px;height:16px;object-fit:contain}
 
   /* Certifications */
   .certs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-  .cert{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:16px}
-  .cert img{width:24px;height:24px;flex-shrink:0;margin-top:2px}
+  .cert{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:20px;transition:border-color .25s,transform .35s var(--ease)}
+  .cert:hover{border-color:var(--line2);transform:translateY(-2px)}
+  .cert img{width:26px;height:26px;flex-shrink:0;margin-top:2px;position:relative;z-index:1}
+  .cert > span{position:relative;z-index:1}
   .cert .name{font-weight:600;line-height:1.35;display:block}
   .cert .meta{font-size:13px;color:var(--muted);display:block;margin-top:2px}
 
-  /* Blog */
-  .post{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--line)}
+  /* Experience / blog */
+  .post{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:22px 0;border-top:1px solid var(--line)}
   .post:first-child{padding-top:0;border-top:0}
   .post:last-child{padding-bottom:0}
-  .post time{font-size:13px;color:var(--muted);padding-top:3px}
-  .post h3{font-size:17px;font-weight:600;letter-spacing:-.02em}
-  .post p{margin-top:6px;color:var(--muted);white-space:pre-line}
+  .post time{font:13px var(--mono);color:var(--muted);padding-top:3px}
+  .post h3{font-size:18px;font-weight:600;letter-spacing:-.02em}
+  .post p{margin-top:6px;color:var(--muted);white-space:pre-line;max-width:600px}
 
   /* GitHub */
-  .gh-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:24px}
-  .gh-head h2{margin:0}
-  .gh-head a{font-size:14px;color:var(--muted);transition:color .2s}
-  .gh-head a:hover{color:var(--text)}
-  .gh-stats{display:flex;gap:40px;flex-wrap:wrap;margin-bottom:24px}
-  .gh-stats b{display:block;font-size:22px;font-weight:500;line-height:1.3}
+  .gh-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+  .gh-head .eyebrow{flex:1;margin:0}
+  .gh-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);transition:color .2s}
+  .gh-link:hover{color:var(--text)}
+  .gh-stats{display:flex;gap:48px;flex-wrap:wrap;margin-bottom:24px}
+  .gh-stats b{display:block;font-size:26px;font-weight:500;line-height:1.3}
   .gh-stats span{font-size:13px;color:var(--muted)}
-  .graph{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface)}
+  .graph{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--surface)}
   .graph .scroll{overflow-x:auto;scrollbar-width:none}
   .graph .scroll::-webkit-scrollbar{display:none}
   .graph svg{display:block;width:100%;min-width:640px;height:auto}
   .graph svg text{fill:var(--muted);font:9px var(--mono)}
-  .graph rect{opacity:0;animation:cell .4s ease-out forwards}
+  .graph rect{opacity:0;animation:cell .4s ease-out forwards;transition:filter .15s}
+  .graph rect:hover{filter:brightness(1.6)}
   @keyframes cell{to{opacity:1}}
   .graph .msg{color:var(--muted);font-size:14px;min-height:96px;display:grid;place-items:center;text-align:center}
   .legend{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:12px;font-size:12px;color:var(--muted)}
   .legend i{width:10px;height:10px;border-radius:2px}
   .legend span:first-child{margin-right:4px}
   .legend span:last-child{margin-left:4px}
-  h3.sub{font-size:14px;font-weight:500;color:var(--muted);margin:32px 0 12px}
+  .sub{font:500 13px var(--mono);color:var(--muted);margin:36px 0 14px}
   .repo .name{font-family:var(--mono);font-size:14px;font-weight:500}
   .repo .metric{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+  .repo .metric .ic{width:12px;height:12px;vertical-align:-1px;fill:currentColor;stroke:none}
   .lang{display:inline-flex;align-items:center;gap:6px;color:var(--text)}
   .lang i{width:8px;height:8px;border-radius:50%}
-  .skel{height:64px;border-radius:12px;margin:0 12px 4px;background:var(--surface);animation:pulse 1.4s ease-in-out infinite}
-  @keyframes pulse{50%{opacity:.45}}
+  .skel{height:70px;border-radius:14px;background:linear-gradient(90deg,var(--surface) 30%,var(--hover) 50%,var(--surface) 70%);background-size:300% 100%;animation:shimmer 1.4s linear infinite}
+  @keyframes shimmer{from{background-position:100% 0}to{background-position:0 0}}
 
   /* Contact */
   .contact{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-  .contact a{display:flex;align-items:center;gap:12px;min-height:60px;padding:0 16px;border-radius:12px;border:1px solid var(--line);transition:background .2s,border-color .2s;min-width:0}
-  .contact a:hover{background:var(--hover);border-color:#2e2e33}
-  .contact img{width:18px;height:18px;flex-shrink:0}
-  .contact a > span{min-width:0}
+  .contact a{display:flex;align-items:center;gap:14px;min-height:68px;padding:0 20px;border-radius:14px;border:1px solid var(--line);background:var(--surface);min-width:0;
+    transition:border-color .25s,transform .35s var(--ease)}
+  .contact a:hover{border-color:var(--line2);transform:translateY(-2px)}
+  .contact img,.contact .txt{position:relative;z-index:1}
+  .contact img{width:20px;height:20px;flex-shrink:0}
+  .contact .txt{min-width:0;flex:1}
   .contact .k{font-size:12px;color:var(--muted);display:block;line-height:1.2}
-  .contact .v{font-size:15px;font-weight:500;line-height:1.3;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .contact .v{font-size:15px;font-weight:500;line-height:1.35;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .contact .go{position:relative;z-index:1;color:var(--muted);transition:transform .3s var(--ease),color .2s}
+  .contact a:hover .go{transform:translate(3px,-3px);color:var(--text)}
 
-  footer{padding:32px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
-  .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  footer{padding:32px 0 56px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .foot a{display:inline-flex;align-items:center;gap:6px;transition:color .2s}
+  .foot a:hover{color:var(--text)}
+  .foot .mono{font-family:var(--mono);font-size:12px}
 
-  /* Motion */
-  .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  /* Scroll reveal: sections fade in, children stagger */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
   .reveal.in{opacity:1;transform:none}
+  .reveal .st{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:calc(var(--i,0) * 70ms + 80ms)}
+  .reveal.in .st{opacity:1;transform:none}
+  .row.st,.cert.st,.contact a.st{transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .25s}
+  .reveal.in .row.st:hover,.reveal.in .cert.st:hover,.reveal.in .contact a.st:hover{transform:translateY(-2px);transition-delay:0s}
+
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{transition:none!important;animation:none!important}
-    .reveal,.graph rect{opacity:1;transform:none} html{scroll-behavior:auto}
+    .reveal,.reveal .st,.graph rect,h1 .ch{opacity:1;transform:none} html{scroll-behavior:auto}
   }
-  @media (max-width:640px){
-    nav .right{display:none}
-    header{padding:56px 0 48px}
+  @media (max-width:700px){
+    header{padding:64px 0 48px}
     section{padding:48px 0}
+    nav .brand span{display:none}
+    nav .right{margin-right:-8px}
+    nav .right a{padding:8px 7px;font-size:13px}
+    nav .right a::after{left:7px;right:7px}
     .two,.certs,.contact{grid-template-columns:1fr}
-    .stats{grid-template-columns:1fr;gap:16px}
+    .two{gap:36px}
+    .stats{grid-template-columns:1fr;gap:20px}
     .stat{padding-left:0;border-left:0}
-    .row .metric{display:none}
+    .row .metric,.row .idx{display:none}
     .post{grid-template-columns:1fr;gap:4px}
-    .gh-stats{gap:24px}
+    .gh-stats{gap:28px}
+    .scrollcue{display:none}
   }
+  @media (max-width:420px){ nav .right a:nth-child(2){display:none} }
 </style>
 </head>
 <body>
+<div class="bg base"></div>
+<div class="bg glow"></div>
+<div class="progress" id="progress"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+</svg>
+
 <nav><div class="wrap">
-  <a class="brand" href="#top">Isaiah Boyd</a>
-  <div class="right">
+  <a class="brand" href="#top" aria-label="Isaiah Boyd, back to top"><b>IB</b><span>Isaiah Boyd</span></a>
+  <div class="right" id="navlinks">
     <a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#github">GitHub</a><a href="#blog">Blog</a><a href="#contact">Contact</a>
   </div>
 </div></nav>
 
 <main class="wrap" id="top">
   <header>
-    <img class="me" src="pfp.png" alt="Portrait of Isaiah Boyd" width="80" height="80">
-    <p class="status"><i></i>Available for freelance projects</p>
-    <h1>Isaiah Boyd</h1>
-    <p class="title">Software Engineer, Entrepreneur, AI Enthusiast</p>
+    <div class="intro-row">
+      <div class="me-ring"><img class="me" src="pfp.png" alt="Portrait of Isaiah Boyd" width="88" height="88"></div>
+      <p class="status"><i></i>Available for freelance projects</p>
+    </div>
+    <h1 id="name" aria-label="Isaiah Boyd">Isaiah Boyd</h1>
+    <p class="title" id="role" aria-label="Software Engineer, Entrepreneur, AI Enthusiast"><span class="pre">&gt;</span> Software Engineer, Entrepreneur, AI Enthusiast</p>
     <p class="intro">I am a high school student who designs and builds websites and applications. Over the past year, I have launched several independent projects, ranging from an AI platform to a developer community. I am currently expanding my skills in SwiftUI and native app development.</p>
     <div class="cta">
-      <a class="btn primary" href="mailto:itsizzydudee@gmail.com">Email Me</a>
-      <a class="btn" href="https://www.linkedin.com/in/isaiah-boyd-828a0941a/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="">LinkedIn</a>
-      <a class="btn" href="https://github.com/izzyfrm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>GitHub</a>
+      <a class="btn primary" data-magnet href="mailto:itsizzydudee@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>Email Me</a>
+      <a class="btn" data-magnet href="https://www.linkedin.com/in/isaiah-boyd-828a0941a/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="">LinkedIn</a>
+      <a class="btn" data-magnet href="https://github.com/izzyfrm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>GitHub</a>
     </div>
+    <div class="scrollcue" aria-hidden="true"><i></i>scroll</div>
   </header>
 
-  <section class="reveal">
-    <h2>Impact</h2>
+  <section class="reveal" id="impact">
+    <div class="eyebrow st" style="--i:0"><span>01</span> Impact</div>
     <div class="stats">
-      <div class="stat"><b class="num">8.3k+</b><span>Unique visitors across my sites</span></div>
-      <div class="stat"><b class="num">9</b><span>Live domains managed</span></div>
-      <div class="stat"><b class="num">2</b><span>Security certifications</span></div>
+      <div class="stat st" style="--i:1"><b class="num" data-to="8.3" data-dec="1" data-suf="k+">8.3k+</b><span>Unique visitors across my sites</span></div>
+      <div class="stat st" style="--i:2"><b class="num" data-to="9">9</b><span>Live domains managed</span></div>
+      <div class="stat st" style="--i:3"><b class="num" data-to="2">2</b><span>Security certifications</span></div>
     </div>
-    <p class="note">Visitor data from Cloudflare Analytics.</p>
+    <p class="note st" style="--i:4">Visitor data from Cloudflare Analytics.</p>
   </section>
 
   <section id="projects" class="reveal">
-    <h2>Projects</h2>
+    <div class="eyebrow st" style="--i:0"><span>02</span> Projects</div>
     <div class="rows">
-      <a class="row" href="https://raww.cloud" target="_blank" rel="noopener">
-        <span class="ico"><img src="https://raww.cloud/favicon.svg" alt="" width="20" height="20"></span>
+      <a class="row spot st" style="--i:1" href="https://raww.cloud" target="_blank" rel="noopener">
+        <span class="idx">01</span>
+        <span class="ico"><img src="https://raww.cloud/favicon.svg" alt="" width="22" height="22"></span>
         <span class="txt"><span class="name">raww.cloud</span><span class="desc">File hosting and sharing service</span></span>
-        <span class="metric"><b class="num">3.7k</b>visitors</span>
-        <span class="arr" aria-hidden="true">→</span>
+        <span class="metric"><b class="num" data-to="3.7" data-dec="1" data-suf="k">3.7k</b>visitors</span>
+        <svg class="ic arr" aria-hidden="true"><use href="#i-arrow"/></svg>
       </a>
-      <a class="row" href="https://dianoetic.tech" target="_blank" rel="noopener">
-        <span class="ico"><img src="https://dianoetic.tech/assets/logo.svg" alt="" width="20" height="20"></span>
+      <a class="row spot st" style="--i:2" href="https://dianoetic.tech" target="_blank" rel="noopener">
+        <span class="idx">02</span>
+        <span class="ico"><img src="https://dianoetic.tech/assets/logo.svg" alt="" width="22" height="22"></span>
         <span class="txt"><span class="name">Dianoetic</span><span class="desc">AI-powered web platform</span></span>
-        <span class="metric"><b class="num">1.35k</b>visitors</span>
-        <span class="arr" aria-hidden="true">→</span>
+        <span class="metric"><b class="num" data-to="1.35" data-dec="2" data-suf="k">1.35k</b>visitors</span>
+        <svg class="ic arr" aria-hidden="true"><use href="#i-arrow"/></svg>
       </a>
-      <a class="row" href="https://codersocial.com" target="_blank" rel="noopener">
-        <span class="ico"><img src="https://codersocial.com/logo.svg" alt="" width="20" height="20"></span>
+      <a class="row spot st" style="--i:3" href="https://codersocial.com" target="_blank" rel="noopener">
+        <span class="idx">03</span>
+        <span class="ico"><img src="https://codersocial.com/logo.svg" alt="" width="22" height="22"></span>
         <span class="txt"><span class="name">CoderSocial</span><span class="desc">Social network for programmers and developers</span></span>
-        <span class="metric"><b class="num">881</b>visitors</span>
-        <span class="arr" aria-hidden="true">→</span>
+        <span class="metric"><b class="num" data-to="881">881</b>visitors</span>
+        <svg class="ic arr" aria-hidden="true"><use href="#i-arrow"/></svg>
       </a>
-      <a class="row" href="https://opcoda.cc" target="_blank" rel="noopener">
-        <span class="ico"><img src="https://opcoda.cc/favicon.svg" alt="" width="20" height="20"></span>
-        <span class="txt"><span class="name">opcoda.cc</span><span class="desc">AI coding assistant for developers, focused on writing code rather than chatting</span></span>
-        <span class="metric"><b>New</b>launching</span>
-        <span class="arr" aria-hidden="true">→</span>
+      <a class="row spot st" style="--i:4" href="https://opcoda.cc" target="_blank" rel="noopener">
+        <span class="idx">04</span>
+        <span class="ico"><img src="https://opcoda.cc/favicon.svg" alt="" width="22" height="22"></span>
+        <span class="txt"><span class="name">opcoda.cc<span class="tag">New</span></span><span class="desc">AI coding assistant for developers, focused on writing code rather than chatting</span></span>
+        <span class="metric"><b>Launching</b>soon</span>
+        <svg class="ic arr" aria-hidden="true"><use href="#i-arrow"/></svg>
       </a>
     </div>
   </section>
@@ -239,27 +325,27 @@
   <section id="skills" class="reveal">
     <div class="two">
       <div>
-        <h2>Technical Skills</h2>
+        <div class="eyebrow st" style="--i:0"><span>03</span> Technical Skills</div>
         <div class="chips" id="stack-list"></div>
       </div>
       <div>
-        <h2>Tools</h2>
+        <div class="eyebrow st" style="--i:1">Tools</div>
         <div class="chips" id="tools-list"></div>
       </div>
     </div>
   </section>
 
   <section id="github" class="reveal">
-    <div class="gh-head">
-      <h2>GitHub</h2>
-      <a href="https://github.com/izzyfrm" target="_blank" rel="noopener">@izzyfrm ↗</a>
+    <div class="gh-head st" style="--i:0">
+      <div class="eyebrow"><span>04</span> GitHub</div>
+      <a class="gh-link" href="https://github.com/izzyfrm" target="_blank" rel="noopener">@izzyfrm<svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></a>
     </div>
-    <div class="gh-stats">
-      <div><b class="num" id="s-contrib">—</b><span>Contributions, past year</span></div>
-      <div><b class="num" id="s-repos">—</b><span>Public repositories</span></div>
-      <div><b class="num" id="s-followers">—</b><span>Followers</span></div>
+    <div class="gh-stats st" style="--i:1">
+      <div><b class="num" id="s-contrib">0</b><span>Contributions, past year</span></div>
+      <div><b class="num" id="s-repos">0</b><span>Public repositories</span></div>
+      <div><b class="num" id="s-followers">0</b><span>Followers</span></div>
     </div>
-    <div class="graph">
+    <div class="graph st" style="--i:2">
       <div class="scroll" id="graph"><p class="msg">Loading contributions…</p></div>
       <div class="legend" aria-hidden="true">
         <span>Less</span>
@@ -267,49 +353,54 @@
         <span>More</span>
       </div>
     </div>
-    <h3 class="sub">Recently updated</h3>
-    <div class="rows" id="repos">
+    <h3 class="sub st" style="--i:3">Recently updated</h3>
+    <div class="rows st" style="--i:4" id="repos">
       <div class="skel"></div><div class="skel"></div><div class="skel"></div>
     </div>
   </section>
 
-  <section class="reveal">
-    <h2>Certifications</h2>
+  <section class="reveal" id="certs">
+    <div class="eyebrow st" style="--i:0"><span>05</span> Certifications</div>
     <div class="certs">
-      <div class="cert"><img src="https://cdn.simpleicons.org/tryhackme/C11111" alt=""><span><span class="name">AI Security Level 1 (AI1)</span><span class="meta">TryHackMe</span></span></div>
-      <div class="cert"><img src="https://cdn.simpleicons.org/tryhackme/C11111" alt=""><span><span class="name">Web Application Pentester Level 1 (WEB1)</span><span class="meta">TryHackMe</span></span></div>
+      <div class="cert spot st" style="--i:1"><img src="https://cdn.simpleicons.org/tryhackme/C11111" alt=""><span><span class="name">AI Security Level 1 (AI1)</span><span class="meta">TryHackMe</span></span></div>
+      <div class="cert spot st" style="--i:2"><img src="https://cdn.simpleicons.org/tryhackme/C11111" alt=""><span><span class="name">Web Application Pentester Level 1 (WEB1)</span><span class="meta">TryHackMe</span></span></div>
     </div>
   </section>
 
-  <section class="reveal">
-    <h2>Experience</h2>
-    <p class="lead">My experience to date comes from designing, building, and launching my own projects independently, including deploying and managing nine live domains through Cloudflare. I am actively seeking freelance opportunities to apply these skills in a professional setting.</p>
+  <section class="reveal" id="experience">
+    <div class="eyebrow st" style="--i:0"><span>06</span> Experience</div>
+    <p class="lead st" style="--i:1">My experience to date comes from designing, building, and launching my own projects independently, including deploying and managing nine live domains through Cloudflare. I am actively seeking freelance opportunities to apply these skills in a professional setting.</p>
   </section>
 
   <section id="blog" class="reveal">
-    <h2>Blog</h2>
-    <div class="posts" id="posts"></div>
+    <div class="eyebrow st" style="--i:0"><span>07</span> Blog</div>
+    <div class="posts st" style="--i:1" id="posts"></div>
   </section>
 
   <section id="contact" class="reveal">
-    <h2>Contact</h2>
+    <div class="eyebrow st" style="--i:0"><span>08</span> Contact</div>
     <div class="contact">
-      <a href="mailto:itsizzydudee@gmail.com"><img src="https://cdn.simpleicons.org/gmail/EA4335" alt=""><span><span class="k">Email</span><span class="v">itsizzydudee@gmail.com</span></span></a>
-      <a href="https://www.linkedin.com/in/isaiah-boyd-828a0941a/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt=""><span><span class="k">LinkedIn</span><span class="v">Isaiah Boyd</span></span></a>
-      <a href="https://github.com/izzyfrm" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/github/ffffff" alt=""><span><span class="k">GitHub</span><span class="v">izzyfrm</span></span></a>
-      <a href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/discord/5865F2" alt=""><span><span class="k">Discord</span><span class="v">izzysrc</span></span></a>
-      <a href="https://x.com/izzyyvr" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/x/ffffff" alt=""><span><span class="k">X</span><span class="v">@izzyyvr</span></span></a>
-      <a href="https://codersocial.com/@Isaiah" target="_blank" rel="noopener"><img src="https://codersocial.com/logo.svg" alt=""><span><span class="k">CoderSocial</span><span class="v">@Isaiah</span></span></a>
+      <a class="spot st" style="--i:1" href="mailto:itsizzydudee@gmail.com"><img src="https://cdn.simpleicons.org/gmail/EA4335" alt=""><span class="txt"><span class="k">Email</span><span class="v">itsizzydudee@gmail.com</span></span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="spot st" style="--i:2" href="https://www.linkedin.com/in/isaiah-boyd-828a0941a/" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt=""><span class="txt"><span class="k">LinkedIn</span><span class="v">Isaiah Boyd</span></span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="spot st" style="--i:3" href="https://github.com/izzyfrm" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/github/ffffff" alt=""><span class="txt"><span class="k">GitHub</span><span class="v">izzyfrm</span></span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="spot st" style="--i:4" href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/discord/5865F2" alt=""><span class="txt"><span class="k">Discord</span><span class="v">izzysrc</span></span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="spot st" style="--i:5" href="https://x.com/izzyyvr" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/x/ffffff" alt=""><span class="txt"><span class="k">X</span><span class="v">@izzyyvr</span></span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="spot st" style="--i:6" href="https://codersocial.com/@Isaiah" target="_blank" rel="noopener"><img src="https://codersocial.com/logo.svg" alt=""><span class="txt"><span class="k">CoderSocial</span><span class="v">@Isaiah</span></span><svg class="ic go" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </section>
 </main>
 
-<footer><div class="wrap foot"><span><span id="yr"></span> Isaiah Boyd</span><span>isaiahboyd.xyz</span></div></footer>
+<footer><div class="wrap foot">
+  <span><span id="yr"></span> Isaiah Boyd</span>
+  <span class="mono">Hand-coded in HTML, CSS and JavaScript</span>
+  <a href="#top">Back to top<svg class="ic" style="width:14px;height:14px"><use href="#i-up"/></svg></a>
+</div></footer>
 
 <script src="posts.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 const GH_USER = 'izzyfrm';
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 $('yr').textContent = new Date().getFullYear();
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -318,7 +409,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 const dv = (n, v = 'original') => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${n}/${n}-${v}.svg`;
 const si = (n, c = '') => `https://cdn.simpleicons.org/${n}${c ? '/' + c : ''}`;
 const chip = ([name, src, inv]) =>
-  `<span class="chip"><img${inv ? ' class="inv"' : ''} src="${src}" alt="" width="16" height="16" onerror="this.remove()">${name}</span>`;
+  `<span class="chip st"><img${inv ? ' class="inv"' : ''} src="${src}" alt="" width="16" height="16" onerror="this.remove()">${name}</span>`;
 
 $('stack-list').innerHTML = [
   ['Python', dv('python')],
@@ -339,6 +430,9 @@ $('tools-list').innerHTML = [
   ['OpenCode', 'https://opencode.ai/apple-touch-icon-v3.png'],
 ].map(chip).join('');
 
+// Stagger the chips inside each group
+document.querySelectorAll('.chips').forEach(g => [...g.children].forEach((c, i) => c.style.setProperty('--i', i + 2)));
+
 // Blog posts (edit posts.js to add new ones)
 const fmtDate = d => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 const posts = (typeof POSTS !== 'undefined' ? POSTS : []).slice().sort((a, b) => b.date.localeCompare(a.date));
@@ -346,10 +440,53 @@ $('posts').innerHTML = posts.length
   ? posts.map(p => `<article class="post"><time datetime="${esc(p.date)}">${fmtDate(p.date)}</time><div><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p></div></article>`).join('')
   : '<p class="lead">No posts yet.</p>';
 
+// Hero: name animates in letter by letter
+(() => {
+  const h = $('name');
+  h.innerHTML = [...h.textContent].map((c, i) =>
+    c === ' ' ? '<span class="sp"></span>' : `<span class="ch" aria-hidden="true" style="--i:${i}">${c}</span>`).join('');
+})();
+
+// Hero: role line types and deletes through each title
+(() => {
+  const el = $('role');
+  const roles = ['Software Engineer', 'Entrepreneur', 'AI Enthusiast'];
+  if (REDUCED) return;
+  el.innerHTML = '<span class="pre">&gt;</span> <span id="typed"></span><span class="caret"></span>';
+  const out = $('typed');
+  let r = 0, n = 0, dir = 1;
+  const tick = () => {
+    const word = roles[r];
+    n += dir;
+    out.textContent = word.slice(0, n);
+    let wait = dir > 0 ? 70 : 35;
+    if (dir > 0 && n === word.length) { dir = -1; wait = 1600; }
+    else if (dir < 0 && n === 0) { dir = 1; r = (r + 1) % roles.length; wait = 350; }
+    setTimeout(tick, wait);
+  };
+  setTimeout(tick, 900);
+})();
+
+// Count-up for numbers when their section scrolls into view
+function countUp(el) {
+  if (el.dataset.done) return;
+  el.dataset.done = 1;
+  const to = parseFloat(el.dataset.to), dec = +el.dataset.dec || 0, suf = el.dataset.suf || '';
+  const fmt = v => v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
+  if (REDUCED) { el.textContent = fmt(to); return; }
+  const t0 = performance.now(), dur = 1400;
+  (function frame(t) {
+    const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 4);
+    el.textContent = fmt(to * e);
+    if (p < 1) requestAnimationFrame(frame);
+  })(t0);
+}
+
 // GitHub: profile stats
+const setStat = (id, v) => { const el = $(id); el.dataset.to = v; if (el.closest('.reveal.in')) countUp(el); };
 fetch(`https://api.github.com/users/${GH_USER}`).then(r => r.json()).then(u => {
-  if (u.public_repos != null) $('s-repos').textContent = u.public_repos;
-  if (u.followers != null) $('s-followers').textContent = u.followers;
+  if (u.public_repos != null) setStat('s-repos', u.public_repos);
+  if (u.followers != null) setStat('s-followers', u.followers);
 }).catch(() => {});
 
 // GitHub: contribution graph, drawn from the public contributions API
@@ -371,7 +508,7 @@ function drawGraph(days) {
     }
     const when = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     const what = d.count === 0 ? 'No contributions' : `${d.count} contribution${d.count === 1 ? '' : 's'}`;
-    cells += `<rect x="${col * STEP}" y="${TOP + row * STEP}" width="${CELL}" height="${CELL}" rx="2" fill="var(--g${Math.min(d.level, 4)})" style="animation-delay:${col * 8}ms"><title>${what} on ${when}</title></rect>`;
+    cells += `<rect x="${col * STEP}" y="${TOP + row * STEP}" width="${CELL}" height="${CELL}" rx="2" fill="var(--g${Math.min(d.level, 4)})" style="animation-delay:${col * 14}ms"><title>${what} on ${when}</title></rect>`;
   });
   const w = weeks * STEP - (STEP - CELL), h = TOP + 7 * STEP - (STEP - CELL);
   const box = $('graph');
@@ -380,7 +517,7 @@ function drawGraph(days) {
 }
 fetch(`https://github-contributions-api.jogruber.de/v4/${GH_USER}?y=last`).then(r => r.json()).then(d => {
   const t = d.total && (d.total.lastYear ?? Object.values(d.total)[0]);
-  if (t != null) $('s-contrib').textContent = t.toLocaleString();
+  if (t != null) setStat('s-contrib', t);
   if (!d.contributions || !d.contributions.length) throw new Error('empty');
   drawGraph(d.contributions);
 }).catch(() => {
@@ -402,23 +539,70 @@ fetch(`https://api.github.com/users/${GH_USER}/repos?sort=pushed&per_page=30`).t
   const repos = list.filter(r => !r.fork && r.name !== GH_USER).slice(0, 5);
   if (!repos.length) throw new Error('empty');
   $('repos').innerHTML = repos.map(r => `
-    <a class="row repo" href="${esc(r.html_url)}" target="_blank" rel="noopener">
+    <a class="row repo spot" href="${esc(r.html_url)}" target="_blank" rel="noopener">
       <span class="txt"><span class="name">${esc(r.name)}</span><span class="desc">${esc(r.description || 'No description yet')}</span></span>
       <span class="metric">
         ${r.language ? `<span class="lang"><i style="background:${LANG[r.language] || '#8e8e93'}"></i>${esc(r.language)}</span>` : ''}
-        <span>${r.stargazers_count ? `★ ${r.stargazers_count} · ` : ''}Updated ${ago(r.pushed_at)}</span>
+        <span>${r.stargazers_count ? `<svg class="ic"><use href="#i-star"/></svg> ${r.stargazers_count} · ` : ''}Updated ${ago(r.pushed_at)}</span>
       </span>
-      <span class="arr" aria-hidden="true">→</span>
+      <svg class="ic arr" aria-hidden="true"><use href="#i-arrow"/></svg>
     </a>`).join('');
 }).catch(() => {
-  $('repos').innerHTML = `<p class="note" style="margin:0 12px">Could not load repositories. <a href="https://github.com/${GH_USER}?tab=repositories" target="_blank" rel="noopener" style="text-decoration:underline">Browse them on GitHub</a></p>`;
+  $('repos').innerHTML = `<p class="note" style="margin:0">Could not load repositories. <a href="https://github.com/${GH_USER}?tab=repositories" target="_blank" rel="noopener" style="text-decoration:underline">Browse them on GitHub</a></p>`;
 });
 
-// Scroll reveal
+// Scroll reveal (also kicks off count-ups)
 const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  e.target.querySelectorAll('[data-to]').forEach(countUp);
+  io.unobserve(e.target);
 }), { rootMargin: '0px 0px -8% 0px' });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Active nav link follows the section in view
+const links = [...document.querySelectorAll('#navlinks a')];
+const spy = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+}), { rootMargin: '-45% 0px -50% 0px' });
+links.forEach(a => { const s = document.querySelector(a.getAttribute('href')); if (s) spy.observe(s); });
+
+// Scroll progress bar
+const bar = $('progress');
+let ticking = false;
+addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    ticking = false;
+  });
+}, { passive: true });
+
+// Pointer effects: dot-grid glow, card spotlight, magnetic buttons
+if (!REDUCED) {
+  const root = document.documentElement.style;
+  addEventListener('pointermove', e => {
+    root.setProperty('--mx', e.clientX + 'px');
+    root.setProperty('--my', e.clientY + 'px');
+    const card = e.target.closest && e.target.closest('.spot');
+    if (card) {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--x', e.clientX - r.left + 'px');
+      card.style.setProperty('--y', e.clientY - r.top + 'px');
+    }
+  }, { passive: true });
+
+  document.querySelectorAll('[data-magnet]').forEach(b => {
+    b.addEventListener('pointermove', e => {
+      const r = b.getBoundingClientRect();
+      b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .15}px, ${(e.clientY - r.top - r.height / 2) * .25}px)`;
+    });
+    b.addEventListener('pointerleave', () => { b.style.transform = ''; });
+  });
+}
 </script>
 </body>
 </html>
