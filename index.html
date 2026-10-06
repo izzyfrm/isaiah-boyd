@@ -26,15 +26,12 @@ a{color:inherit;text-decoration:none}
 section{padding:110px 0}
 h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.03em;font-weight:700;margin-bottom:10px}
 .sub{color:var(--mute);margin-bottom:40px;max-width:560px}
-.eyebrow{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
+.eyebrow{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:14px;display:block}
 
-/* background glow + cursor light */
-.glow{position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(500px circle at var(--mx,50%) var(--my,30%),rgba(79,140,255,.10),transparent 60%)}
 main,nav,footer{position:relative;z-index:1}
 
 /* progress bar */
-#bar{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:100}
+#bar{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--accent);z-index:100}
 
 /* nav */
 nav{position:fixed;top:14px;left:50%;translate:-50% 0;z-index:50;display:flex;gap:4px;padding:6px;
@@ -47,18 +44,20 @@ nav a:hover,nav a.on{color:#fff;background:#18181c}
 /* hero */
 .hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px}
 .hero h1{font-size:clamp(40px,8vw,88px);line-height:1.02;letter-spacing:-.045em;font-weight:800}
-.hero h1 .grad{background:linear-gradient(100deg,#fff 20%,var(--accent) 60%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:shift 6s ease-in-out infinite alternate}
-@keyframes shift{to{background-position:100% 0}}
+.hero h1 .grad{color:#fff}
+.hero h1 .lead{color:#8b8b95}
 .wave{display:inline-block;transform-origin:70% 70%;animation:wave 2.4s ease-in-out infinite 1.2s}
 @keyframes wave{0%,60%,100%{rotate:0deg}10%,30%{rotate:16deg}20%,40%{rotate:-10deg}50%{rotate:8deg}}
 .roles{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 36px}
-.role{padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:14px;font-weight:500;transition:.35s var(--ease)}
-.role:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px -10px rgba(79,140,255,.5)}
+.role{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border:1px solid var(--line);border-radius:8px;background:var(--card);font-size:14px;font-weight:500;transition:.35s var(--ease)}
+.role svg{width:16px;height:16px;stroke:var(--mute);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:.3s}
+.role:hover svg{stroke:#fff}
+.role:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 24px -12px rgba(255,255,255,.25)}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
 .btn{padding:13px 24px;border-radius:12px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--card);transition:.35s var(--ease);display:inline-flex;gap:8px;align-items:center}
 .btn.primary{background:#fff;color:#000;border-color:#fff}
 .btn:hover{transform:translateY(-3px)}
-.btn.primary:hover{box-shadow:0 10px 40px -8px rgba(255,255,255,.4)}
+.btn.primary:hover{box-shadow:0 8px 24px -10px rgba(255,255,255,.35)}
 .scroll{position:absolute;bottom:30px;left:50%;translate:-50% 0;width:22px;height:36px;border:1.5px solid #444;border-radius:12px}
 .scroll::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:#fff;animation:sc 1.8s infinite}
 @keyframes sc{50%{translate:0 10px;opacity:.2}}
@@ -70,20 +69,18 @@ nav a:hover,nav a.on{color:#fff;background:#18181c}
 
 /* stats */
 .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px}
-.tot{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.tot{padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 .tot b{display:block;font-size:34px;letter-spacing:-.03em}
 .tot span{color:var(--mute);font-size:13px}
 
 /* project cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
-.card{position:relative;display:flex;flex-direction:column;gap:14px;padding:24px;border:1px solid var(--line);border-radius:20px;background:var(--card);overflow:hidden;
+.card{position:relative;display:flex;flex-direction:column;gap:14px;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden;
   transition:transform .5s var(--ease),border-color .4s}
-.card::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--cx,50%) var(--cy,0%),rgba(79,140,255,.16),transparent 60%);opacity:0;transition:opacity .4s}
 .card:hover{transform:translateY(-6px);border-color:#2c3a5c}
-.card:hover::before{opacity:1}
-.card>*{position:relative}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.ico{width:44px;height:44px;border-radius:12px;background:#111116;border:1px solid var(--line);display:grid;place-items:center;font-size:22px}
+.ico{width:44px;height:44px;border-radius:10px;background:#111114;border:1px solid var(--line);display:grid;place-items:center;font:600 16px Inter;color:var(--mute);overflow:hidden}
+.ico img{width:26px;height:26px;object-fit:contain}
 .arrow{color:var(--mute);transition:.4s var(--ease)}
 .card:hover .arrow{color:#fff;translate:3px -3px}
 .card h3{font-size:20px;letter-spacing:-.02em}
@@ -94,7 +91,7 @@ nav a:hover,nav a.on{color:#fff;background:#18181c}
 .num small{display:block;font:400 11px Inter;color:var(--mute);letter-spacing:0;margin-top:5px}
 .spark{width:150px;height:48px;overflow:visible}
 .spark .ln{fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 2s var(--ease) .2s}
-.spark .ar{fill:url(#g);opacity:0;transition:opacity 1.4s ease 1s}
+.spark .ar{fill:var(--accent);fill-opacity:.1;opacity:0;transition:opacity 1.4s ease 1s}
 .in .spark .ln{stroke-dashoffset:0}
 .in .spark .ar{opacity:1}
 .spark .dot{fill:#fff;opacity:0;transition:opacity .4s 2s}
@@ -104,7 +101,7 @@ nav a:hover,nav a.on{color:#fff;background:#18181c}
 /* extra links */
 .extra{margin-top:46px}
 .extra h3{font-size:18px;margin-bottom:14px;color:var(--mute);font-weight:500}
-.rows{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card)}
+.rows{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
 .row{display:grid;grid-template-columns:1.3fr 1fr 150px;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line);transition:background .3s}
 .row:last-child{border:0}
 .row:hover{background:#101014}
@@ -117,25 +114,23 @@ nav a:hover,nav a.on{color:#fff;background:#18181c}
 
 /* skills */
 .skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px}
-.sk{position:relative;aspect-ratio:1;border:1px solid var(--line);border-radius:18px;background:var(--card);display:grid;place-items:center;
+.sk{position:relative;aspect-ratio:1;border:1px solid var(--line);border-radius:12px;background:var(--card);display:grid;place-items:center;
   transition:transform .4s var(--ease),border-color .3s,box-shadow .4s;cursor:default}
-.sk:hover{transform:translateY(-6px) scale(1.06);border-color:#34406a;box-shadow:0 14px 40px -14px rgba(79,140,255,.55)}
+.sk:hover{transform:translateY(-6px) scale(1.06);border-color:#34406a;box-shadow:0 12px 30px -16px rgba(255,255,255,.3)}
 .sk img{width:44%;height:44%;object-fit:contain;transition:.4s var(--ease)}
-.sk .em{font-size:30px}
+.sk .em{font:600 20px Inter;color:var(--mute)}
 .sk .tip{position:absolute;bottom:calc(100% + 8px);left:50%;translate:-50% 6px;padding:6px 11px;border-radius:8px;background:#fff;color:#000;font-size:12px;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:.25s var(--ease);z-index:5}
 .sk .tip::after{content:"";position:absolute;top:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-top-color:#fff}
 .sk:hover .tip,.sk:focus-visible .tip{opacity:1;translate:-50% 0}
-.emj{position:absolute;top:6px;right:8px;font-size:13px;opacity:.9}
 h2+.sub+.skills{margin-top:0}
 .group{margin-bottom:34px}
 .group h4{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
 
 /* contact */
 .contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.ct{display:flex;align-items:center;gap:14px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--card);transition:.4s var(--ease)}
+.ct{display:flex;align-items:center;gap:14px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--card);transition:.4s var(--ease)}
 .ct:hover{transform:translateY(-4px);border-color:#34406a}
 .ct img{width:24px;height:24px}
-.ct .e{font-size:22px;width:24px;text-align:center}
 .ct small{display:block;color:var(--mute);font-size:12px}
 .ct span{font-weight:600;font-size:15px;word-break:break-all}
 footer{padding:50px 0 60px;color:var(--mute);font-size:13px;text-align:center;border-top:1px solid var(--line)}
@@ -153,7 +148,6 @@ footer{padding:50px 0 60px;color:var(--mute);font-size:13px;text-align:center;bo
 </head>
 <body class="load">
 <div id="bar"></div>
-<div class="glow"></div>
 
 <nav>
   <a href="#home" class="on">Home</a>
@@ -166,12 +160,12 @@ footer{padding:50px 0 60px;color:var(--mute);font-size:13px;text-align:center;bo
 <section class="hero" id="home">
   <div class="wrap">
     <span class="eyebrow rv">Portfolio · 2026</span>
-    <h1 class="rv" style="--d:.1s">What's Up, I'm <span class="grad">Isaiah Boyd</span> <span class="wave">👋🏾</span></h1>
+    <h1 class="rv" style="--d:.1s"><span class="lead">What's Up, I'm</span> <span class="grad">Isaiah Boyd</span> <span class="wave">👋🏾</span></h1>
     <div class="roles rv" style="--d:.25s">
-      <span class="role">💻 Software Engineer</span>
-      <span class="role">🤖 AI Enthusiast</span>
-      <span class="role">🚀 Entrepreneur</span>
-      <span class="role">🎓 High School Developer</span>
+      <span class="role"><svg viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>Software Engineer</span>
+      <span class="role"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>AI Enthusiast</span>
+      <span class="role"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>Entrepreneur</span>
+      <span class="role"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>High School Developer</span>
     </div>
     <div class="cta rv" style="--d:.4s">
       <a class="btn primary" href="#projects">View my work ↓</a>
@@ -216,11 +210,8 @@ footer{padding:50px 0 60px;color:var(--mute);font-size:13px;text-align:center;bo
 </section>
 </main>
 
-<footer><div class="wrap">Built by Isaiah Boyd · © 2026 🖤</div></footer>
+<footer><div class="wrap">Built by Isaiah Boyd · © 2026</div></footer>
 
-<svg width="0" height="0" style="position:absolute"><defs>
-  <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f8cff" stop-opacity=".45"/><stop offset="1" stop-color="#4f8cff" stop-opacity="0"/></linearGradient>
-</defs></svg>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
@@ -230,12 +221,12 @@ const DV = (n,v='original') => `https://cdn.jsdelivr.net/gh/devicons/devicon/ico
 
 /* ---- data ---- */
 const projects = [
-  {name:'Raww Cloud', url:'https://raww.cloud', host:'raww.cloud', emoji:'☁️', desc:'File uploader — up to 25 MB.', visits:3950, pts:[1,1,1.2,1,1,1.1,1,1.2,9,1.5,1,1,1.3,1,1,1.2]},
-  {name:'Dianoetic', url:'https://dianoetic.tech', host:'dianoetic.tech', emoji:'🧠', desc:'AI platform.', visits:1770, pts:[3,6,5.5,5,4.8,4.6,4.5,4.4,4.5,4.3,4.1,4.2,4,4.1,3.8,4]},
-  {name:'Opcoda', url:'https://opcoda.cc', host:'opcoda.cc', emoji:'⌨️', desc:'Coding AI.', visits:410, pts:[8,7.5,7,6.5,6,5.5,5.3,5.2,5.4,5.6,5.4,5,4.6,4.2,3.8,3.4]},
-  {name:'Coder Social', url:'https://codersocial.com', host:'codersocial.com', emoji:'👥', desc:'Social website for coders.', visits:2020, pts:[4,3.8,3.6,3.4,3.2,3.5,4,5,6.5,8,6,4.5,3.8,3.6,3.4,3.2]},
-  {name:'GangBlox', url:'https://discord.gg/ARhdVjYW2f', host:'discord.gg/ARhdVjYW2f', emoji:'🎮', desc:'Roblox game.', icon:SI('roblox')},
-  {name:'LostRooms', url:'https://discord.gg/XsXtMPsRqX', host:'discord.gg/XsXtMPsRqX', emoji:'🚪', desc:'Roblox game.', icon:SI('roblox')},
+  {name:'Raww Cloud', url:'https://raww.cloud', host:'raww.cloud', fav:'raww.cloud', desc:'File uploader — up to 25 MB.', visits:3950, pts:[1,1,1.2,1,1,1.1,1,1.2,9,1.5,1,1,1.3,1,1,1.2]},
+  {name:'Dianoetic', url:'https://dianoetic.tech', host:'dianoetic.tech', fav:'dianoetic.tech', desc:'AI platform.', visits:1770, pts:[3,6,5.5,5,4.8,4.6,4.5,4.4,4.5,4.3,4.1,4.2,4,4.1,3.8,4]},
+  {name:'Opcoda', url:'https://opcoda.cc', host:'opcoda.cc', fav:'opcoda.cc', desc:'Coding AI.', visits:410, pts:[8,7.5,7,6.5,6,5.5,5.3,5.2,5.4,5.6,5.4,5,4.6,4.2,3.8,3.4]},
+  {name:'Coder Social', url:'https://codersocial.com', host:'codersocial.com', fav:'codersocial.com', desc:'Social website for coders.', visits:2020, pts:[4,3.8,3.6,3.4,3.2,3.5,4,5,6.5,8,6,4.5,3.8,3.6,3.4,3.2]},
+  {name:'GangBlox', url:'https://discord.gg/ARhdVjYW2f', host:'discord.gg/ARhdVjYW2f', icon:SI('roblox'), desc:'Roblox game.'},
+  {name:'LostRooms', url:'https://discord.gg/XsXtMPsRqX', host:'discord.gg/XsXtMPsRqX', icon:SI('roblox'), desc:'Roblox game.'},
 ];
 const extras = [
   {host:'izzyy.me', visits:1010, pts:[5,6,5,6.5,5.5,6,5,6.8,5.2,5.8,5,6,7,6.5,5.5,6]},
@@ -246,30 +237,30 @@ const extras = [
 ];
 const skillGroups = [
   {title:'Languages', items:[
-    {n:'Python', e:'🐍', i:DV('python')},
-    {n:'JavaScript', e:'⚡', i:DV('javascript')},
-    {n:'HTML', e:'🌐', i:DV('html5')},
-    {n:'CSS', e:'🎨', i:DV('css3')},
-    {n:'Luau', e:'🌙', i:'https://cdn.jsdelivr.net/gh/luau-lang/luau@master/docs/static/img/luau.svg'},
+    {n:'Python', i:DV('python')},
+    {n:'JavaScript', i:DV('javascript')},
+    {n:'HTML', i:DV('html5')},
+    {n:'CSS', i:DV('css3')},
+    {n:'Luau', i:'https://cdn.jsdelivr.net/gh/luau-lang/luau@master/docs/static/img/luau.svg'},
   ]},
   {title:'Platforms & Frameworks', items:[
-    {n:'Discord', e:'💬', i:SIC('discord','5865F2')},
-    {n:'Meta', e:'♾️', i:SIC('meta','0467DF')},
-    {n:'Roblox Studio', e:'🧱', i:SI('robloxstudio')},
-    {n:'Roblox', e:'🎮', i:SI('roblox')},
-    {n:'React Native', e:'⚛️', i:SIC('react','61DAFB')},
-    {n:'Expo Go', e:'📱', i:SI('expo')},
-    {n:'SwiftUI', e:'🕊️', i:SIC('swift','F05138')},
+    {n:'Discord', i:SIC('discord','5865F2')},
+    {n:'Meta', i:SIC('meta','0467DF')},
+    {n:'Roblox Studio', i:SI('robloxstudio')},
+    {n:'Roblox', i:SI('roblox')},
+    {n:'React Native', i:SIC('react','61DAFB')},
+    {n:'Expo Go', i:SI('expo')},
+    {n:'SwiftUI', i:SIC('swift','F05138')},
   ]},
   {title:'AI & Dev Tools', items:[
-    {n:'ChatGPT', e:'💭', i:SI('openai')},
-    {n:'Claude Code', e:'🧑‍💻', i:SIC('claude','D97757')},
-    {n:'Claude', e:'✨', i:SIC('anthropic','D97757')},
-    {n:'VS Code', e:'🟦', i:DV('vscode')},
-    {n:'Xcode', e:'🔨', i:SIC('xcode','1575F9')},
-    {n:'Antigravity', e:'🪐', i:SIC('googlegemini','8E75B2')},
-    {n:'Grok', e:'✖️', i:SI('x')},
-    {n:'NBA', e:'🏀', i:'https://cdn.jsdelivr.net/gh/nba-api/nba-logos@main/nba.svg'},
+    {n:'ChatGPT', i:SI('openai')},
+    {n:'Claude Code', i:SIC('claude','D97757')},
+    {n:'Claude', i:SIC('anthropic','D97757')},
+    {n:'VS Code', i:DV('vscode')},
+    {n:'Xcode', i:SIC('xcode','1575F9')},
+    {n:'Antigravity', i:SIC('googlegemini','8E75B2')},
+    {n:'Grok', i:SI('x')},
+    {n:'NBA', i:'https://cdn.jsdelivr.net/gh/nba-api/nba-logos@main/nba.svg'},
   ]},
 ];
 const contacts = [
@@ -305,10 +296,10 @@ document.getElementById('totals').innerHTML = `
 
 document.getElementById('projects-grid').innerHTML = projects.map((p,i)=>`
   <a class="card rv" style="--d:${i*.07}s" href="${p.url}" target="_blank" rel="noopener">
-    <div class="top"><div class="ico">${p.emoji}</div>${arrow}</div>
+    <div class="top"><div class="ico"><img src="${p.icon||'https://www.google.com/s2/favicons?domain='+p.fav+'&sz=64'}" alt="" onerror="this.outerHTML='${p.name[0]}'"></div>${arrow}</div>
     <h3>${p.name}</h3><p>${p.desc}</p><span class="url">${p.host}</span>
     ${p.visits ? `<div class="stat"><div class="num"><span data-count="${p.visits}" data-fmt="1">0</span><small>visits</small></div>${spark(p.pts)}</div>`
-               : `<div class="stat"><div class="num"><span style="font-size:15px;font-weight:500;color:var(--mute)">🎮 Join on Discord</span></div></div>`}
+               : `<div class="stat"><div class="num"><span style="font-size:14px;font-weight:500;color:var(--mute)">Join on Discord</span></div></div>`}
   </a>`).join('');
 
 document.getElementById('extra-rows').innerHTML = extras.map(e=>`
@@ -322,7 +313,7 @@ document.getElementById('skill-groups').innerHTML = skillGroups.map(g=>`
   <div class="group"><h4 class="rv">${g.title}</h4><div class="skills">${g.items.map((s,i)=>`
     <div class="sk rv" style="--d:${i*.05}s" tabindex="0">
       <span class="tip">${s.n}</span>
-      <img src="${s.i}" alt="${s.n}" loading="lazy" onerror="this.outerHTML='<span class=em>${s.e}</span>'">
+      <img src="${s.i}" alt="${s.n}" loading="lazy" onerror="this.outerHTML='<span class=em>${s.n[0]}</span>'">
     </div>`).join('')}</div></div>`).join('');
 
 const ct = c => `<${c.h?'a href="'+c.h+'" target="_blank" rel="noopener"':'div'} class="ct rv">
@@ -364,13 +355,6 @@ addEventListener('scroll',()=>{
   let cur=0; secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=i});
   links.forEach((a,i)=>a.classList.toggle('on',i===cur));
 },{passive:true});
-addEventListener('pointermove',e=>{
-  document.documentElement.style.setProperty('--mx',e.clientX+'px');
-  document.documentElement.style.setProperty('--my',e.clientY+'px');
-});
-document.querySelectorAll('.card').forEach(c=>c.addEventListener('pointermove',e=>{
-  const r=c.getBoundingClientRect(); c.style.setProperty('--cx',e.clientX-r.left+'px'); c.style.setProperty('--cy',e.clientY-r.top+'px');
-}));
 </script>
 </body>
 </html>
