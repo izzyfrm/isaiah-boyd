@@ -155,6 +155,7 @@ footer{padding:50px 0 60px;color:var(--mute);font-size:13px;text-align:center;bo
 .status .dotlive.off{background:#e5484d;animation:none;box-shadow:none}
 .skills.big{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
 .skills.big .sk{aspect-ratio:auto;min-height:110px;align-items:end;justify-items:start;padding:18px;font-weight:600;font-size:16px}
+.hero{position:relative}
 </style>
 </head>
 <body class="load">
@@ -232,15 +233,15 @@ const status=document.getElementById('status');
 function setStatus(ok,msg){status.innerHTML=`<i class="dotlive${ok?'':' off'}"></i><span></span>`;status.lastChild.textContent=msg}
 async function refresh(){
   try{
-    const r=await fetch('/rblx/api/games',{cache:'no-store'});
-    const type=r.headers.get('content-type')||'';
-    if(!r.ok||!type.includes('json'))throw Error('API route returned '+r.status);
+    let r=await fetch('/rblx/api/games',{cache:'no-store'}).catch(()=>null);
+    if(!r||!r.ok||!(r.headers.get('content-type')||'').includes('json'))r=await fetch('/rblx/stats.json',{cache:'no-store'});
+    if(!r.ok)throw Error('stats unavailable ('+r.status+')');
     const data=await r.json();
     if(!Array.isArray(data.games))throw Error('Invalid response');
     const by=new Map(data.games.map(g=>[String(g.placeId),g]));
     render(games.map(g=>({...g,...(by.get(String(g.placeId))||{})})));
     const live=data.games.some(g=>g.visits!=null);
-    setStatus(live,live?'Live Roblox stats · updated '+new Date().toLocaleTimeString():'Roblox returned no stats right now');
+    setStatus(live,live?'Roblox stats updated '+(data.updated?new Date(data.updated):new Date()).toLocaleString():'Roblox returned no stats right now');
   }catch(e){setStatus(false,'Live Roblox stats unavailable ('+e.message+'). Retrying…')}
 }
 refresh();setInterval(refresh,60000);
