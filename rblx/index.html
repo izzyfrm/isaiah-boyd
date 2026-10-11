@@ -1,9 +1,261 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000"><title>Isaiah Boyd — Roblox Page</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>
-:root{--bg:#000;--card:#0b0b0d;--line:#1c1c21;--text:#f4f4f6;--mute:#8b8b95;--accent:#4f8cff;--ease:cubic-bezier(.2,.7,.2,1)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}.wrap{width:min(1100px,calc(100% - 40px));margin:auto}nav{position:fixed;z-index:5;top:14px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:6px;border:1px solid var(--line);border-radius:999px;background:rgba(12,12,14,.92);white-space:nowrap}nav a{padding:8px 13px;color:var(--mute);font-size:13px;border-radius:99px}nav a:hover{color:#fff;background:#18181c}section{padding:100px 0}.hero{min-height:100svh;display:flex;align-items:center}.eyebrow{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}h1{font-size:clamp(48px,8vw,88px);line-height:1.05;letter-spacing:-.045em;margin:18px 0 30px}h1 span{color:var(--mute)}h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.03em;margin:10px 0}.sub{color:var(--mute);margin:0 0 32px}.roles,.cta{display:flex;flex-wrap:wrap;gap:10px}.role,.sk{padding:12px 16px;border:1px solid var(--line);border-radius:9px;background:var(--card)}.btn{display:inline-block;padding:13px 24px;border:1px solid var(--line);border-radius:12px;font-weight:600;background:var(--card)}.btn.primary{background:#fff;color:#000}.cta{margin-top:32px}.skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.sk{min-height:120px;display:flex;align-items:end;font-size:17px;font-weight:600}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .3s,border-color .3s}.card:hover{transform:translateY(-5px);border-color:#34406a}.cover{height:180px;background:#111114;display:grid;place-items:center;color:var(--mute)}.cover img{height:100%;width:100%;object-fit:cover}.body{padding:22px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.top h3{margin:0;font-size:21px}.arrow{color:var(--accent)}.rolelabel{color:var(--mute);margin:6px 0 20px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stats b{display:block;font-size:20px}.stats small{color:var(--mute);font-size:12px}.status{color:var(--mute);font-size:13px;margin-top:22px}footer{border-top:1px solid var(--line);padding:40px 20px;text-align:center;color:var(--mute)}@media(max-width:650px){section{padding:75px 0}.hero{padding-top:140px}.skills{grid-template-columns:repeat(2,1fr)}nav a{padding:8px;font-size:11px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card{transition:none}}
-</style></head><body><nav><a href="#home">Home</a><a href="#skills">Skills</a><a href="#games">Games</a><a href="/">Main Portfolio ↗</a></nav><main><section class="hero" id="home"><div class="wrap"><span class="eyebrow">Portfolio · Roblox Development</span><h1><span>Isaiah Boyd</span><br>Roblox Page.</h1><div class="roles"><span class="role">User Interface</span><span class="role">Building</span><span class="role">Scripting</span><span class="role">Animation</span></div><div class="cta"><a class="btn primary" href="#games">View my games ↓</a><a class="btn" href="/">Main Portfolio ↗</a></div></div></section><section id="skills"><div class="wrap"><span class="eyebrow">Skills</span><h2>Roblox Skills</h2><p class="sub">What I work on in Roblox Studio.</p><div class="skills"><div class="sk">User Interface</div><div class="sk">Building</div><div class="sk">Scripting</div><div class="sk">Animation</div></div></div></section><section id="games"><div class="wrap"><span class="eyebrow">Projects</span><h2>Games</h2><p class="sub">Games I've founded, developed, and contributed to.</p><div class="grid" id="games-grid"></div><p class="status" id="status">Loading Roblox statistics…</p></div></section></main><footer>Built by Isaiah Boyd · © 2026 · <a href="/">Main Portfolio</a></footer><script>
-const games=[{name:'GangBlox',placeId:99832303399510,role:'Founder and Developer',url:'https://www.roblox.com/games/99832303399510/GangBlox'},{name:'LostRooms',placeId:99841965770897,role:'Founder and Developer',url:'https://www.roblox.com/games/99841965770897/LostRooms'},{name:'Soccer Realism',placeId:127034224100534,role:'Developer / Contributed',url:'https://www.roblox.com/games/127034224100534/Soccer-Realism'}];
-const grid=document.querySelector('#games-grid');const fmt=n=>typeof n==='number'?new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1}).format(n):'—';
-function render(items){grid.replaceChildren();for(const g of items){const a=document.createElement('a');a.className='card';a.href=g.url;a.target='_blank';a.rel='noopener noreferrer';const cover=document.createElement('div');cover.className='cover';if(g.image){const img=document.createElement('img');img.src=g.image;img.alt=g.name+' game thumbnail';img.loading='lazy';img.onerror=()=>{cover.textContent='Thumbnail unavailable'};cover.append(img)}else cover.textContent='Thumbnail unavailable';const body=document.createElement('div');body.className='body';const top=document.createElement('div');top.className='top';const title=document.createElement('h3');title.textContent=g.name;const arrow=document.createElement('span');arrow.className='arrow';arrow.textContent='↗';top.append(title,arrow);const role=document.createElement('p');role.className='rolelabel';role.textContent=g.role;const stats=document.createElement('div');stats.className='stats';for(const [label,value] of [['Visits',g.visits],['Playing',g.playing],['Favorites',g.favorites]]){const cell=document.createElement('div');const num=document.createElement('b');num.textContent=fmt(value);const small=document.createElement('small');small.textContent=label;cell.append(num,small);stats.append(cell)}body.append(top,role,stats);a.append(cover,body);grid.append(a)}}
-render(games);async function refresh(){const status=document.querySelector('#status');try{const response=await fetch('/rblx/api/games',{cache:'no-store'});if(!response.ok)throw Error('API unavailable');const data=await response.json();if(!Array.isArray(data.games))throw Error('Invalid response');const byId=new Map(data.games.map(g=>[String(g.placeId),g]));render(games.map(g=>({...g,...(byId.get(String(g.placeId))||{})})));status.textContent='Roblox stats updated · '+new Date().toLocaleTimeString()}catch(e){status.textContent='Live Roblox stats unavailable until the Cloudflare API route is configured.'}}refresh();setInterval(refresh,60000);
-</script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isaiah Boyd — Roblox</title>
+<meta name="description" content="Isaiah Boyd — Roblox developer — UI, building, scripting and animation.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋🏾</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000; --card:#0b0b0d; --line:#1c1c21; --text:#f4f4f6; --mute:#8b8b95;
+  --accent:#4f8cff; --accent2:#9b6bff; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000;color-scheme:dark}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:#000;color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#fff}
+.wrap{width:min(1100px,100% - 40px);margin-inline:auto}
+section{padding:110px 0}
+h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.03em;font-weight:700;margin-bottom:10px}
+.sub{color:var(--mute);margin-bottom:40px;max-width:560px}
+.eyebrow{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:14px;display:block}
+
+main,nav,footer{position:relative;z-index:1}
+
+/* progress bar */
+#bar{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--accent);z-index:100}
+
+/* nav */
+nav{position:fixed;top:14px;left:50%;translate:-50% 0;z-index:50;display:flex;gap:4px;padding:6px;
+  background:rgba(12,12,14,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:999px;
+  animation:drop .9s var(--ease) both .2s}
+nav a{padding:8px 16px;border-radius:999px;font-size:14px;color:var(--mute);transition:.3s var(--ease)}
+nav a:hover,nav a.on{color:#fff;background:#18181c}
+@keyframes drop{from{opacity:0;translate:-50% -20px}}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px}
+.hero h1{font-size:clamp(40px,8vw,88px);line-height:1.02;letter-spacing:-.045em;font-weight:800}
+.hero h1 .grad{color:#fff}
+.hero h1 .lead{color:#8b8b95}
+.wave{display:inline-block;transform-origin:70% 70%;animation:wave 2.4s ease-in-out infinite 1.2s}
+@keyframes wave{0%,60%,100%{rotate:0deg}10%,30%{rotate:16deg}20%,40%{rotate:-10deg}50%{rotate:8deg}}
+.roles{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 36px}
+.role{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border:1px solid var(--line);border-radius:8px;background:var(--card);font-size:14px;font-weight:500;transition:.35s var(--ease)}
+.role svg{width:16px;height:16px;stroke:var(--mute);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:.3s}
+.role:hover svg{stroke:#fff}
+.role:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 24px -12px rgba(255,255,255,.25)}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:13px 24px;border-radius:12px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--card);transition:.35s var(--ease);display:inline-flex;gap:8px;align-items:center}
+.btn.primary{background:#fff;color:#000;border-color:#fff}
+.btn:hover{transform:translateY(-3px)}
+.btn.primary:hover{box-shadow:0 8px 24px -10px rgba(255,255,255,.35)}
+.scroll{position:absolute;bottom:30px;left:50%;translate:-50% 0;width:22px;height:36px;border:1.5px solid #444;border-radius:12px}
+.scroll::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:#fff;animation:sc 1.8s infinite}
+@keyframes sc{50%{translate:0 10px;opacity:.2}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none;filter:none}
+.load .rv{transition-delay:calc(var(--d,0s) + .3s)}
+
+/* stats */
+.totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px}
+.tot{padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.tot b{display:block;font-size:34px;letter-spacing:-.03em}
+.tot span{color:var(--mute);font-size:13px}
+
+/* project cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.card{position:relative;display:flex;flex-direction:column;gap:14px;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden;
+  transition:transform .5s var(--ease),border-color .4s}
+.card:hover{transform:translateY(-6px);border-color:#2c3a5c}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ico{width:44px;height:44px;border-radius:10px;background:#111114;border:1px solid var(--line);display:grid;place-items:center;font:600 16px Inter;color:var(--mute);overflow:hidden}
+.ico img{width:26px;height:26px;object-fit:contain}
+.arrow{color:var(--mute);transition:.4s var(--ease)}
+.card:hover .arrow{color:#fff;translate:3px -3px}
+.card h3{font-size:20px;letter-spacing:-.02em}
+.card p{color:var(--mute);font-size:14px;margin-top:-8px}
+.url{font:12px 'JetBrains Mono',monospace;color:var(--accent)}
+.stat{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:6px}
+.num{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.num small{display:block;font:400 11px Inter;color:var(--mute);letter-spacing:0;margin-top:5px}
+.spark{width:150px;height:48px;overflow:visible}
+.spark .ln{fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 2s var(--ease) .2s}
+.spark .ar{fill:var(--accent);fill-opacity:.1;opacity:0;transition:opacity 1.4s ease 1s}
+.in .spark .ln{stroke-dashoffset:0}
+.in .spark .ar{opacity:1}
+.spark .dot{fill:#fff;opacity:0;transition:opacity .4s 2s}
+.in .spark .dot{opacity:1;animation:ping 2.2s infinite 2.2s}
+@keyframes ping{0%{r:2.5}70%,100%{r:2.5}}
+
+/* extra links */
+.extra{margin-top:46px}
+.extra h3{font-size:18px;margin-bottom:14px;color:var(--mute);font-weight:500}
+.rows{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.row{display:grid;grid-template-columns:1.3fr 1fr 150px;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line);transition:background .3s}
+.row:last-child{border:0}
+.row:hover{background:#101014}
+.row .d{font-weight:600}
+.row .v{font-variant-numeric:tabular-nums;color:var(--mute);font-size:14px}
+.row .v b{color:#fff;font-size:16px;margin-right:4px}
+.row .spark{width:100%;height:30px}
+.dotlive{display:inline-block;width:7px;height:7px;border-radius:50%;background:#34d27b;margin-right:8px;box-shadow:0 0 0 0 rgba(52,210,123,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(52,210,123,0)}100%{box-shadow:0 0 0 0 rgba(52,210,123,0)}}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px}
+.sk{position:relative;aspect-ratio:1;border:1px solid var(--line);border-radius:12px;background:var(--card);display:grid;place-items:center;
+  transition:transform .4s var(--ease),border-color .3s,box-shadow .4s;cursor:default}
+.sk:hover{transform:translateY(-6px) scale(1.06);border-color:#34406a;box-shadow:0 12px 30px -16px rgba(255,255,255,.3)}
+.sk img{width:44%;height:44%;object-fit:contain;transition:.4s var(--ease)}
+.sk .em{font:600 20px Inter;color:var(--mute)}
+.sk .tip{position:absolute;bottom:calc(100% + 8px);left:50%;translate:-50% 6px;padding:6px 11px;border-radius:8px;background:#fff;color:#000;font-size:12px;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:.25s var(--ease);z-index:5}
+.sk .tip::after{content:"";position:absolute;top:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-top-color:#fff}
+.sk:hover .tip,.sk:focus-visible .tip{opacity:1;translate:-50% 0}
+h2+.sub+.skills{margin-top:0}
+.group{margin-bottom:34px}
+.group h4{font:500 12px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.ct{display:flex;align-items:center;gap:14px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--card);transition:.4s var(--ease)}
+.ct:hover{transform:translateY(-4px);border-color:#34406a}
+.ct img{width:24px;height:24px}
+.ct small{display:block;color:var(--mute);font-size:12px}
+.ct span{font-weight:600;font-size:15px;word-break:break-all}
+footer{padding:50px 0 60px;color:var(--mute);font-size:13px;text-align:center;border-top:1px solid var(--line)}
+
+@media(max-width:700px){
+  section{padding:80px 0}
+  nav a{padding:7px 11px;font-size:13px}
+  .row{grid-template-columns:1fr 90px;grid-template-areas:"d s" "v s"}
+  .row .d{grid-area:d}.row .v{grid-area:v}.row .spark-w{grid-area:s}
+  .spark{width:120px}
+  .skills{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
+
+/* roblox page */
+.cover{height:170px;margin:-24px -24px 0;background:#111114;display:grid;place-items:center;color:var(--mute);font-size:13px;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover}
+.rstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:auto;padding-top:6px}
+.rstats b{display:block;font-size:22px;letter-spacing:-.03em}
+.rstats small{color:var(--mute);font-size:12px}
+.status{color:var(--mute);font-size:13px;margin-top:22px;display:flex;align-items:center}
+.status .dotlive.off{background:#e5484d;animation:none;box-shadow:none}
+.skills.big{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.skills.big .sk{aspect-ratio:auto;min-height:110px;align-items:end;justify-items:start;padding:18px;font-weight:600;font-size:16px}
+</style>
+</head>
+<body class="load">
+<div id="bar"></div>
+<nav>
+  <a href="#home" class="on">Home</a>
+  <a href="#skills">Skills</a>
+  <a href="#games">Games</a>
+  <a href="/">Main Portfolio ↗</a>
+</nav>
+<main>
+<section class="hero" id="home">
+  <div class="wrap">
+    <span class="eyebrow rv">Portfolio · Roblox Development</span>
+    <h1 class="rv" style="--d:.1s"><span class="lead">Isaiah Boyd's</span> <span class="grad">Roblox Page</span> <span class="wave">🎮</span></h1>
+    <div class="roles rv" style="--d:.25s">
+      <span class="role"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg>User Interface</span>
+      <span class="role"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>Building</span>
+      <span class="role"><svg viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>Scripting</span>
+      <span class="role"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></svg>Animation</span>
+    </div>
+    <div class="cta rv" style="--d:.4s">
+      <a class="btn primary" href="#games">View my games ↓</a>
+      <a class="btn" href="/">Main Portfolio ↗</a>
+    </div>
+  </div>
+  <div class="scroll"></div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <span class="eyebrow rv">Skills</span>
+    <h2 class="rv">Roblox skills</h2>
+    <p class="sub rv">What I work on in Roblox Studio.</p>
+    <div class="skills big">
+      <div class="sk rv">User Interface</div><div class="sk rv" style="--d:.05s">Building</div><div class="sk rv" style="--d:.1s">Scripting</div><div class="sk rv" style="--d:.15s">Animation</div>
+    </div>
+  </div>
+</section>
+
+<section id="games">
+  <div class="wrap">
+    <span class="eyebrow rv">Projects</span>
+    <h2 class="rv">Games</h2>
+    <p class="sub rv">Games I've founded, developed, and contributed to.</p>
+    <div class="grid" id="games-grid"></div>
+    <p class="status" id="status"><i class="dotlive off"></i><span>Loading Roblox statistics…</span></p>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">Built by Isaiah Boyd · © 2026 · <a href="/" style="color:#fff">Main Portfolio</a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const games=[
+  {name:'GangBlox',placeId:99832303399510,role:'Founder and Developer',url:'https://www.roblox.com/games/99832303399510/GangBlox'},
+  {name:'LostRooms',placeId:99841965770897,role:'Founder and Developer',url:'https://www.roblox.com/games/99841965770897/LostRooms'},
+  {name:'Soccer Realism',placeId:127034224100534,role:'Developer / Contributed',url:'https://www.roblox.com/games/127034224100534/Soccer-Realism'},
+];
+const arrow='<svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>typeof n==='number'?new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1}).format(n):'—';
+const grid=document.getElementById('games-grid');
+function render(items){
+  grid.innerHTML=items.map((g,i)=>`
+  <a class="card rv in" style="--d:${i*.07}s" href="${g.url}" target="_blank" rel="noopener">
+    <div class="cover">${g.image?`<img src="${esc(g.image)}" alt="${esc(g.name)} thumbnail" loading="lazy" onerror="this.parentNode.textContent='Thumbnail unavailable'">`:'Thumbnail unavailable'}</div>
+    <div class="top"><h3>${esc(g.name)}</h3>${arrow}</div>
+    <p>${esc(g.role)}</p>
+    <div class="rstats">${[['Visits',g.visits],['Playing',g.playing],['Favorites',g.favorites]].map(([l,v])=>`<div><b>${fmt(v)}</b><small>${l}</small></div>`).join('')}</div>
+  </a>`).join('');
+}
+render(games);
+const status=document.getElementById('status');
+function setStatus(ok,msg){status.innerHTML=`<i class="dotlive${ok?'':' off'}"></i><span></span>`;status.lastChild.textContent=msg}
+async function refresh(){
+  try{
+    const r=await fetch('/rblx/api/games',{cache:'no-store'});
+    const type=r.headers.get('content-type')||'';
+    if(!r.ok||!type.includes('json'))throw Error('API route returned '+r.status);
+    const data=await r.json();
+    if(!Array.isArray(data.games))throw Error('Invalid response');
+    const by=new Map(data.games.map(g=>[String(g.placeId),g]));
+    render(games.map(g=>({...g,...(by.get(String(g.placeId))||{})})));
+    const live=data.games.some(g=>g.visits!=null);
+    setStatus(live,live?'Live Roblox stats · updated '+new Date().toLocaleTimeString():'Roblox returned no stats right now');
+  }catch(e){setStatus(false,'Live Roblox stats unavailable ('+e.message+'). Retrying…')}
+}
+refresh();setInterval(refresh,60000);
+
+let lenis;
+if(window.Lenis&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  lenis=new Lenis({duration:1.15,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+  (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();lenis.scrollTo(a.getAttribute('href'),{offset:0})}));
+}else document.documentElement.style.scrollBehavior='smooth';
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target)}),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+requestAnimationFrame(()=>setTimeout(()=>document.body.classList.remove('load'),1500));
+const bar=document.getElementById('bar'),links=[...document.querySelectorAll('nav a[href^="#"]')],secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.transform=`scaleX(${scrollY/(h.scrollHeight-innerHeight||1)})`;let cur=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=i});links.forEach((a,i)=>a.classList.toggle('on',i===cur))},{passive:true});
+</script>
+</body>
+</html>
