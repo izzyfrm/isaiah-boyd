@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-15T23:02:41.332Z",
+  "updated": "2026-10-16T01:17:31.242Z",
   "games": [
     {
       "placeId": 99832303399510,
@@ -12,9 +12,9 @@
     {
       "placeId": 99841965770897,
       "universeId": 10769267622,
-      "visits": 4082,
-      "playing": 0,
-      "favorites": 123,
+      "visits": 4098,
+      "playing": 1,
+      "favorites": 124,
       "image": "https://tr.rbxcdn.com/180DAY-0a4de22fbac1f8ceffe269d04a629096/512/512/Image/Png/noFilter"
     },
     {
