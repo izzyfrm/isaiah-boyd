@@ -82,9 +82,9 @@ h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.025em;line-height:1.1;margin:
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;transition:border-color .15s,transform .15s}
 a.card{text-decoration:none;color:var(--text)}
 a.card:hover{border-color:var(--stud);transform:translateY(-2px)}
-.card h3{margin:0;font-size:18px;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.card h3{overflow-wrap:anywhere;margin:0;font-size:18px;letter-spacing:-.01em;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .card h3 small{font:700 12px ui-monospace,Consolas,monospace;color:var(--stud);white-space:nowrap}
-.card p{margin:0;color:var(--mute);font-size:14.5px}
+.card p{overflow-wrap:anywhere;margin:0;color:var(--mute);font-size:14.5px}
 .tag{display:inline-block;font:600 11px/1 ui-monospace,Consolas,monospace;text-transform:uppercase;letter-spacing:.06em;padding:5px 8px;border-radius:5px;background:color-mix(in srgb,var(--blue) 16%,transparent);color:var(--blue);align-self:flex-start}
 
 /* catalog */
@@ -138,6 +138,7 @@ footer .wrap{display:grid;gap:26px}
       <a href="/rblx/">My Roblox work</a>
       <a href="#inside">Inside</a>
       <a href="#catalog" class="keep">Catalog</a>
+      <a href="#community">Repos</a>
       <a href="#gallery">Gallery</a>
       <a href="#ai">For AI</a>
       <a href="#trust">Trust</a>
@@ -198,6 +199,25 @@ footer .wrap{display:grid;gap:26px}
     <p class="sub">The owner's own material: icon set, sports UI, stud-style GUIs, game thumbnails and reference clips.</p>
     <div class="tabs" id="gtabs" role="group" aria-label="Gallery"></div>
     <div id="gbody"></div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="wrap">
+    <h2>Repos and DevForum threads</h2>
+    <p class="sub">Search <span id="ccount">thousands of</span> real GitHub repositories and DevForum resource topics. Loaded only when you search or press the button, straight from the library's data files.</p>
+    <div class="tools">
+      <input class="search" id="cq" type="search" placeholder="Search repos and threads&hellip; try &ldquo;datastore&rdquo;, &ldquo;inventory&rdquo;, &ldquo;rojo&rdquo;" aria-label="Search repos and DevForum threads" autocomplete="off">
+      <button class="btn" id="cload" type="button">Load data</button>
+    </div>
+    <div class="chips" id="cchips" role="group" aria-label="Source">
+      <button class="chip" type="button" data-s="all" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-s="gh" aria-pressed="false">GitHub repos</button>
+      <button class="chip" type="button" data-s="df" aria-pressed="false">DevForum</button>
+    </div>
+    <p class="count" id="ccountline" aria-live="polite"></p>
+    <div class="grid g3" id="cresults"></div>
+    <button class="btn" id="cmore" type="button" hidden>Show more</button>
   </div>
 </section>
 
@@ -363,6 +383,43 @@ footer .wrap{display:grid;gap:26px}
   }
   Object.keys(G).forEach(function(k){var b=el("button","chip",G[k].label);b.type="button";b.dataset.k=k;b.addEventListener("click",function(){show(k)});gtabs.appendChild(b)});
   show("icons");
+
+  /* repos + DevForum search (lazy) */
+  var rows=null,csrc="all",climit=30,cbusy=false;
+  var cres=$("#cresults"),cline=$("#ccountline"),cmore=$("#cmore");
+  function fmt(n){return n>=1000?(n/1000).toFixed(n>=10000?0:1)+"k":""+n}
+  function cload(){
+    if(rows||cbusy)return Promise.resolve();
+    cbusy=true;cline.textContent="Loading…";
+    var get=function(f){return fetch(RAW+"data/"+f).then(function(r){if(!r.ok)throw 0;return r.json()})};
+    return Promise.all([get("github-repos.json"),get("devforum-topics.json")]).then(function(a){
+      rows=[];
+      a[0].repos.forEach(function(r){rows.push({s:"gh",t:r.name,u:"https://github.com/"+r.name,d:r.desc||"",m:"★ "+fmt(r.stars)+(r.lang?" · "+r.lang:"")+(r.archived?" · archived":""),k:(r.name+" "+r.desc+" "+(r.topics||[]).join(" ")).toLowerCase(),p:r.stars})});
+      a[1].topics.forEach(function(t){rows.push({s:"df",t:t.title,u:"https://devforum.roblox.com/t/"+t.slug+"/"+t.id,d:t.cat,m:"♥ "+fmt(t.likes)+" · "+fmt(t.views)+" views",k:(t.title+" "+t.cat).toLowerCase(),p:t.likes*20+t.views/1000})});
+      $("#ccount").textContent=rows.length.toLocaleString();
+      cbusy=false;crender();
+    }).catch(function(){cbusy=false;cline.textContent="";cres.textContent="";cres.appendChild(el("div","empty err","Couldn't load the data files. Browse resources/ on GitHub instead."))});
+  }
+  function crender(){
+    if(!rows)return;
+    var q=$("#cq").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    var list=rows.filter(function(r){return(csrc==="all"||r.s===csrc)&&q.every(function(w){return r.k.indexOf(w)>-1})});
+    list.sort(function(a,b){return b.p-a.p});
+    cres.textContent="";
+    cline.textContent=list.length.toLocaleString()+" result"+(list.length===1?"":"s");
+    list.slice(0,climit).forEach(function(r){
+      var a=el("a","card entry");a.href=r.u;a.target="_blank";a.rel="noopener";
+      a.appendChild(el("span","tag",r.s==="gh"?"GitHub":"DevForum"));
+      a.appendChild(el("h3",null,r.t));
+      var d=r.d.length>160?r.d.slice(0,157)+"…":r.d;if(d)a.appendChild(el("p",null,d));
+      a.appendChild(el("p",null,r.m));cres.appendChild(a);
+    });
+    cmore.hidden=list.length<=climit;
+  }
+  $("#cload").addEventListener("click",cload);
+  var ct;$("#cq").addEventListener("input",function(){cload().then(function(){clearTimeout(ct);ct=setTimeout(function(){climit=30;crender()},150)})});
+  cmore.addEventListener("click",function(){climit+=30;crender()});
+  [].forEach.call(document.querySelectorAll("#cchips .chip"),function(b){b.addEventListener("click",function(){csrc=b.dataset.s;climit=30;[].forEach.call(document.querySelectorAll("#cchips .chip"),function(c){c.setAttribute("aria-pressed",c===b)});crender()})});
 
   /* copy prompt */
   $("#copy").addEventListener("click",function(){
