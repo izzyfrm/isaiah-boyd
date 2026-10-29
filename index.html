@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isaiah B — AI Engineer + Full-Stack Developer</title>
+<style>
+:root{--bg:#09090a;--panel:rgba(255,255,255,.035);--panel-h:rgba(255,255,255,.06);--line:rgba(255,255,255,.09);--line-h:rgba(255,255,255,.22);--text:#f0f0f2;--muted:#9a9aa3;--glow:rgba(180,180,200,.14);--grid:rgba(255,255,255,.045);--btn:#f0f0f2;--btn-t:#09090a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#e9e9ec;--panel:rgba(255,255,255,.6);--panel-h:rgba(255,255,255,.9);--line:rgba(0,0,0,.09);--line-h:rgba(0,0,0,.25);--text:#101012;--muted:#62626a;--glow:rgba(90,90,110,.16);--grid:rgba(0,0,0,.05);--btn:#101012;--btn-t:#f0f0f2}}
+:root[data-theme="light"]{--bg:#e9e9ec;--panel:rgba(255,255,255,.6);--panel-h:rgba(255,255,255,.9);--line:rgba(0,0,0,.09);--line-h:rgba(0,0,0,.25);--glow:rgba(90,90,110,.16);--grid:rgba(0,0,0,.05);--text:#101012;--muted:#62626a;--btn:#101012;--btn-t:#f0f0f2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(700px 420px at 15% -5%,var(--glow),transparent 70%),radial-gradient(600px 400px at 90% 15%,var(--glow),transparent 70%)}
+.bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%)}
+a{color:inherit;text-decoration:none}
+svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+svg.f{fill:currentColor;stroke:none}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;justify-content:center;padding:14px 16px}
+nav div{display:flex;gap:4px;padding:5px;border:1px solid var(--line);border-radius:999px;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+nav a{padding:6px 14px;border-radius:999px;font-size:13px;color:var(--muted);transition:.2s}
+nav a:hover{color:var(--text);background:var(--panel-h)}
+main{max-width:900px;margin:0 auto;padding:40px 22px 48px}
+.hero{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-bottom:56px}
+.av{position:relative;width:104px;height:104px;border-radius:50%;padding:3px;background:linear-gradient(145deg,#8a8a94,#26262b 60%,#6a6a73);flex:none;transition:transform .3s}
+.av:hover{transform:scale(1.04) rotate(-2deg)}
+.av b{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#131316;color:#f0f0f2;font-size:34px;font-weight:600;letter-spacing:-.03em}
+.av i{position:absolute;right:-2px;bottom:-2px;width:32px;height:32px;border-radius:50%;background:var(--btn);color:var(--btn-t);display:grid;place-items:center;border:3px solid var(--bg)}
+.av i svg{width:16px;height:16px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
+.dot{width:7px;height:7px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 0 rgba(123,216,143,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(123,216,143,0)}100%{box-shadow:0 0 0 0 rgba(123,216,143,0)}}
+h1{font-size:clamp(38px,8vw,60px);letter-spacing:-.04em;line-height:1.05;margin:14px 0 6px;font-weight:650}
+.role{font-size:19px;color:var(--muted);margin:0}
+.bio{max-width:620px;font-size:17px;color:var(--muted);margin:22px 0 26px}
+.bio b{color:var(--text);font-weight:500}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:12px;font-size:14.5px;font-weight:500;border:1px solid var(--line);background:var(--panel);transition:.25s}
+.btn:hover{border-color:var(--line-h);background:var(--panel-h);transform:translateY(-2px)}
+.btn.p{background:var(--btn);color:var(--btn-t);border-color:transparent}
+.btn.p:hover{opacity:.9}
+h2{display:flex;align-items:center;gap:10px;font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:600;margin:0 0 18px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+section{margin-bottom:56px}
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{position:relative;padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.3s}
+.card:hover{border-color:var(--line-h);background:var(--panel-h);transform:translateY(-4px)}
+.ic{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;margin-bottom:16px;background:var(--panel)}
+.ic svg{width:20px;height:20px}
+.card h3{margin:0 0 6px;font-size:17px;letter-spacing:-.01em;font-weight:600}
+.card p{margin:0;font-size:14.5px;color:var(--muted)}
+.tag{display:inline-block;margin-top:14px;font-size:12px;color:var(--muted);padding:3px 10px;border:1px solid var(--line);border-radius:999px}
+.proj{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.proj h3{font-size:16px;margin:0}
+.proj p{font-size:13.5px;margin-top:2px}
+.arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.3s;flex:none}
+.card:hover .arrow{background:var(--btn);color:var(--btn-t);transform:rotate(45deg)}
+.stack{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:start;padding:16px 20px}
+.row>span{font-size:13px;color:var(--muted);padding-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:6px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;background:var(--panel);transition:.2s}
+.chip:hover{border-color:var(--line-h);transform:translateY(-2px)}
+.cta{text-align:center;padding:44px 24px}
+.cta h2{justify-content:center}.cta h2::after{display:none}
+.cta h3{font-size:clamp(24px,5vw,32px);letter-spacing:-.03em;margin:0 0 10px}
+.cta p{max-width:480px;margin:0 auto 24px;color:var(--muted)}
+.cta .btns{justify-content:center}
+.soc{display:flex;justify-content:center;gap:10px;margin-top:22px}
+.soc a{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;background:var(--panel);transition:.25s}
+.soc a:hover{border-color:var(--line-h);transform:translateY(-3px);background:var(--panel-h)}
+footer{text-align:center;color:var(--muted);font-size:13px;padding-bottom:12px}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (max-width:560px){.row{grid-template-columns:1fr}.row>span{padding:0}nav a{padding:6px 10px}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.dot{animation:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="gh" viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></symbol>
+<symbol id="x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817-5.97 6.817H1.675l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+<symbol id="tt" viewBox="0 0 24 24"><path d="M19.6 6.7a5 5 0 0 1-3.9-4.2h-3.3v13.4a2.8 2.8 0 1 1-2-2.7V9.8a6.1 6.1 0 1 0 5.3 6.1V9a8 8 0 0 0 4.6 1.5V7.2a4.8 4.8 0 0 1-.7-.5z"/></symbol>
+<symbol id="dc" viewBox="0 0 24 24"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.4a17 17 0 0 1 4.2 1.5 14 14 0 0 0-11.2 0A17 17 0 0 1 12.6 3.4L12.4 3a19 19 0 0 0-4.7 1.4C4.7 8.9 3.9 13.3 4.3 17.6A19 19 0 0 0 10 20.5l.7-1.1a12 12 0 0 1-1.9-.9l.4-.4a13.5 13.5 0 0 0 11.6 0l.4.4c-.6.4-1.2.7-1.9.9l.7 1.1a19 19 0 0 0 5.7-2.9c.5-5-.8-9.3-3.4-13.2zM9.7 15c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z" transform="translate(-1.5 -.5) scale(1.06)"/></symbol>
+</defs></svg>
+
+<nav><div><a href="#about">About</a><a href="#focus">Focus</a><a href="#projects">Projects</a><a href="#stack">Stack</a><a href="#contact">Contact</a></div></nav>
+
+<main>
+  <header class="hero rv" id="about">
+    <a class="av" href="https://github.com/izzyfrm" target="_blank" rel="noopener" aria-label="Isaiah B on GitHub"><b>IB</b><i><svg class="f"><use href="#gh"/></svg></i></a>
+    <div style="flex:1;min-width:260px">
+      <span class="status"><span class="dot"></span>Open to collaborations &amp; opportunities</span>
+      <h1>Isaiah B</h1>
+      <p class="role">AI Engineer + Full-Stack Developer</p>
+    </div>
+    <p class="bio" style="flex-basis:100%;margin:0">I build <b>AI-powered products</b> and <b>polished full-stack experiences</b> — from tweaking open-source models in Python, to shipping fast, clean web interfaces, to crafting Roblox GUI, scripting and VFX.</p>
+    <div class="btns" style="flex-basis:100%">
+      <a class="btn p" href="https://github.com/izzyfrm" target="_blank" rel="noopener"><svg class="f"><use href="#gh"/></svg>View GitHub</a>
+      <a class="btn" href="#contact"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>Get in touch</a>
+    </div>
+  </header>
+
+  <section id="focus" class="rv">
+    <h2>What I Do</h2>
+    <div class="grid g3">
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h3>AI Engineering</h3><p>Building with and tweaking open-source AI models, with Python at the core.</p><span class="tag">Python · Open-source models</span></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg></div><h3>Full-Stack Development</h3><p>Clean, responsive web pages and apps, front to back.</p><span class="tag">TypeScript · React Native · SQLite</span></div>
+      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 3 8v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8"/></svg></div><h3>Roblox Development</h3><p>Interface design, scripting and visual effects, plus a little animating.</p><span class="tag">Luau · GUI · VFX</span></div>
+    </div>
+  </section>
+
+  <section id="projects" class="rv">
+    <h2>Live Projects</h2>
+    <div class="grid g2">
+      <a class="card proj" href="https://raww.cloud" target="_blank" rel="noopener"><div><h3>raww.cloud</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+      <a class="card proj" href="https://dianoetic.tech" target="_blank" rel="noopener"><div><h3>dianoetic.tech</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+      <a class="card proj" href="https://gsea.site" target="_blank" rel="noopener"><div><h3>gsea.site</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+      <a class="card proj" href="https://depthnfl.com" target="_blank" rel="noopener"><div><h3>depthnfl.com</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+    </div>
+  </section>
+
+  <section id="stack" class="rv">
+    <h2>Tech Stack</h2>
+    <div class="stack">
+      <div class="card row"><span>Languages</span><div class="chips"><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Rust</span><span class="chip">Go</span><span class="chip">Luau</span><span class="chip">Bash</span></div></div>
+      <div class="card row"><span>Frontend</span><div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">React Native</span></div></div>
+      <div class="card row"><span>Data</span><div class="chips"><span class="chip">SQLite</span></div></div>
+      <div class="card row"><span>Tools</span><div class="chips"><span class="chip">Git &amp; GitHub</span><span class="chip">Cloudflare</span><span class="chip">VS Code</span><span class="chip">Claude Code</span></div></div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>Beyond Work</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Roblox Projects</h3><p>GUI, scripting and VFX, with a little animating.</p></div>
+      <div class="card"><h3>Web Pages</h3><p>Designing and building clean, modern sites.</p></div>
+      <div class="card"><h3>AI Community</h3><p>Chatting about AI on X and Discord.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="rv">
+    <div class="card cta">
+      <h2>Contact</h2>
+      <h3>Let’s build something great.</h3>
+      <p>Hiring, partnering, or just talking AI? Reach out on any platform below.</p>
+      <div class="btns">
+        <a class="btn p" href="https://x.com/IsaiahSrc" target="_blank" rel="noopener"><svg class="f"><use href="#x"/></svg>Message on X</a>
+        <a class="btn" href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener"><svg class="f"><use href="#dc"/></svg>Discord</a>
+      </div>
+      <div class="soc">
+        <a href="https://github.com/izzyfrm" target="_blank" rel="noopener" aria-label="GitHub"><svg class="f"><use href="#gh"/></svg></a>
+        <a href="https://x.com/IsaiahSrc" target="_blank" rel="noopener" aria-label="X"><svg class="f"><use href="#x"/></svg></a>
+        <a href="https://tiktok.com/@izzyytech" target="_blank" rel="noopener" aria-label="TikTok"><svg class="f"><use href="#tt"/></svg></a>
+        <a href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener" aria-label="Discord"><svg class="f"><use href="#dc"/></svg></a>
+      </div>
+    </div>
+  </section>
+  <footer>© <span id="y">2026</span> Isaiah B</footer>
+</main>
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
