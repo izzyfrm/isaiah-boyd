@@ -3,169 +3,120 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Isaiah B — AI Engineer + Full-Stack Developer</title>
+<title>Isaiah – Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#09090a;--panel:rgba(255,255,255,.035);--panel-h:rgba(255,255,255,.06);--line:rgba(255,255,255,.09);--line-h:rgba(255,255,255,.22);--text:#f0f0f2;--muted:#9a9aa3;--glow:rgba(180,180,200,.14);--grid:rgba(255,255,255,.045);--btn:#f0f0f2;--btn-t:#09090a;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#e9e9ec;--panel:rgba(255,255,255,.6);--panel-h:rgba(255,255,255,.9);--line:rgba(0,0,0,.09);--line-h:rgba(0,0,0,.25);--text:#101012;--muted:#62626a;--glow:rgba(90,90,110,.16);--grid:rgba(0,0,0,.05);--btn:#101012;--btn-t:#f0f0f2}}
-:root[data-theme="light"]{--bg:#e9e9ec;--panel:rgba(255,255,255,.6);--panel-h:rgba(255,255,255,.9);--line:rgba(0,0,0,.09);--line-h:rgba(0,0,0,.25);--glow:rgba(90,90,110,.16);--grid:rgba(0,0,0,.05);--text:#101012;--muted:#62626a;--btn:#101012;--btn-t:#f0f0f2}
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --sky1:#6fc3f2;--sky2:#d4f1ff;--ink:#2b1204;
+  --stud:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='3' y='3' width='6' height='6' rx='1' fill='white' fill-opacity='.13'/%3E%3C/svg%3E");
+  --grass:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='%232f9e3a'/%3E%3Crect x='14' y='14' width='36' height='36' rx='7' fill='%2340b94a'/%3E%3Crect x='14' y='14' width='36' height='36' rx='7' fill='none' stroke='%231f7a2c' stroke-width='3'/%3E%3Cpath d='M0 0H64V64H0Z' fill='none' stroke='%231d6f29' stroke-width='2' stroke-opacity='.6'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky1:#10264a;--sky2:#3a5f99}}
+:root[data-theme="dark"]{--sky1:#10264a;--sky2:#3a5f99}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(700px 420px at 15% -5%,var(--glow),transparent 70%),radial-gradient(600px 400px at 90% 15%,var(--glow),transparent 70%)}
-.bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%)}
-a{color:inherit;text-decoration:none}
-svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
-svg.f{fill:currentColor;stroke:none}
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;justify-content:center;padding:14px 16px}
-nav div{display:flex;gap:4px;padding:5px;border:1px solid var(--line);border-radius:999px;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-nav a{padding:6px 14px;border-radius:999px;font-size:13px;color:var(--muted);transition:.2s}
-nav a:hover{color:var(--text);background:var(--panel-h)}
-main{max-width:900px;margin:0 auto;padding:40px 22px 48px}
-.hero{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-bottom:56px}
-.av{position:relative;width:104px;height:104px;border-radius:50%;padding:3px;background:linear-gradient(145deg,#8a8a94,#26262b 60%,#6a6a73);flex:none;transition:transform .3s}
-.av:hover{transform:scale(1.04) rotate(-2deg)}
-.av b{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#131316;color:#f0f0f2;font-size:34px;font-weight:600;letter-spacing:-.03em}
-.av i{position:absolute;right:-2px;bottom:-2px;width:32px;height:32px;border-radius:50%;background:var(--btn);color:var(--btn-t);display:grid;place-items:center;border:3px solid var(--bg)}
-.av i svg{width:16px;height:16px}
-.status{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
-.dot{width:7px;height:7px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 0 rgba(123,216,143,.6);animation:pulse 2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(123,216,143,0)}100%{box-shadow:0 0 0 0 rgba(123,216,143,0)}}
-h1{font-size:clamp(38px,8vw,60px);letter-spacing:-.04em;line-height:1.05;margin:14px 0 6px;font-weight:650}
-.role{font-size:19px;color:var(--muted);margin:0}
-.bio{max-width:620px;font-size:17px;color:var(--muted);margin:22px 0 26px}
-.bio b{color:var(--text);font-weight:500}
-.btns{display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:12px;font-size:14.5px;font-weight:500;border:1px solid var(--line);background:var(--panel);transition:.25s}
-.btn:hover{border-color:var(--line-h);background:var(--panel-h);transform:translateY(-2px)}
-.btn.p{background:var(--btn);color:var(--btn-t);border-color:transparent}
-.btn.p:hover{opacity:.9}
-h2{display:flex;align-items:center;gap:10px;font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:600;margin:0 0 18px}
-h2::after{content:"";flex:1;height:1px;background:var(--line)}
-section{margin-bottom:56px}
-.grid{display:grid;gap:14px}
-.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.card{position:relative;padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.3s}
-.card:hover{border-color:var(--line-h);background:var(--panel-h);transform:translateY(-4px)}
-.ic{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;margin-bottom:16px;background:var(--panel)}
-.ic svg{width:20px;height:20px}
-.card h3{margin:0 0 6px;font-size:17px;letter-spacing:-.01em;font-weight:600}
-.card p{margin:0;font-size:14.5px;color:var(--muted)}
-.tag{display:inline-block;margin-top:14px;font-size:12px;color:var(--muted);padding:3px 10px;border:1px solid var(--line);border-radius:999px}
-.proj{display:flex;justify-content:space-between;align-items:center;gap:14px}
-.proj h3{font-size:16px;margin:0}
-.proj p{font-size:13.5px;margin-top:2px}
-.arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.3s;flex:none}
-.card:hover .arrow{background:var(--btn);color:var(--btn-t);transform:rotate(45deg)}
-.stack{display:grid;gap:14px}
-.row{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:start;padding:16px 20px}
-.row>span{font-size:13px;color:var(--muted);padding-top:6px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:6px 13px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;background:var(--panel);transition:.2s}
-.chip:hover{border-color:var(--line-h);transform:translateY(-2px)}
-.cta{text-align:center;padding:44px 24px}
-.cta h2{justify-content:center}.cta h2::after{display:none}
-.cta h3{font-size:clamp(24px,5vw,32px);letter-spacing:-.03em;margin:0 0 10px}
-.cta p{max-width:480px;margin:0 auto 24px;color:var(--muted)}
-.cta .btns{justify-content:center}
-.soc{display:flex;justify-content:center;gap:10px;margin-top:22px}
-.soc a{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;background:var(--panel);transition:.25s}
-.soc a:hover{border-color:var(--line-h);transform:translateY(-3px);background:var(--panel-h)}
-footer{text-align:center;color:var(--muted);font-size:13px;padding-bottom:12px}
-.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
-.rv.in{opacity:1;transform:none}
-@media (max-width:560px){.row{grid-template-columns:1fr}.row>span{padding:0}nav a{padding:6px 10px}}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.dot{animation:none}*{transition:none!important}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:Poppins,system-ui,sans-serif;font-weight:600;color:#fff;background:var(--sky2);overflow-x:hidden}
+.world{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(var(--sky1),var(--sky2) 45%)}
+.floor{position:absolute;left:-60%;width:220%;top:34%;height:260%;background:var(--grass);background-size:64px 64px;transform-origin:50% 0;transform:perspective(520px) rotateX(62deg);animation:drift 14s linear infinite}
+.world::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 24%,var(--sky2) 36%,transparent 50%);opacity:.75}
+@keyframes drift{to{background-position:0 64px}}
+@media (prefers-reduced-motion:reduce){.floor{animation:none}}
+.cloud{position:absolute;height:34px;width:120px;background:#fff;border-radius:20px;opacity:.9;box-shadow:40px -14px 0 8px #fff,-34px -4px 0 -2px #fff;animation:float 60s linear infinite}
+@keyframes float{from{transform:translateX(-200px)}to{transform:translateX(110vw)}}
+.t{color:#fff;-webkit-text-stroke:5px #000;paint-order:stroke fill;text-shadow:0 4px 0 rgba(0,0,0,.45);font-weight:800;letter-spacing:.01em}
+main{max-width:860px;margin:0 auto;padding:28px 16px 48px}
+.hero{text-align:center;margin:18px 0 22px}
+.hero h1{margin:0;font-size:clamp(56px,13vw,104px);line-height:1}
+.pill{display:inline-block;margin-top:14px;padding:8px 18px;border:3px solid var(--ink);border-radius:12px;background:linear-gradient(#8dff3a,#2fc414);font-size:clamp(13px,3.2vw,18px)}
+.window{border:3px solid var(--ink);border-radius:6px;background:#7a3f1b;box-shadow:0 10px 0 rgba(0,0,0,.25),0 18px 30px rgba(0,0,0,.25);overflow:hidden}
+.bar{position:relative;display:flex;align-items:stretch;height:58px;border-bottom:3px solid var(--ink);background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 31% 34%,transparent 35% 60%,rgba(255,255,255,.2) 61% 63%,transparent 64%),var(--stud),linear-gradient(#8bf52a,#3ec70f 70%,#2fae0a)}
+.bar h2{flex:1;margin:0;display:grid;place-items:center;font-size:30px}
+.x{width:58px;border:0;border-left:3px solid var(--ink);cursor:pointer;font:800 28px Poppins,sans-serif;background:var(--stud),linear-gradient(#ff3a8e,#d4005f);}
+.x:hover{filter:brightness(1.15)}
+.body{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:16px;min-height:340px;background:var(--stud),linear-gradient(#7a3f1b,#a85209)}
+.window.closed .body{display:none}
+.tabs{display:flex;flex-direction:column;gap:12px}
+.tab{cursor:pointer;border:3px solid var(--ink);border-radius:10px;padding:10px 6px;font:800 19px Poppins,sans-serif;background:var(--stud),var(--g);box-shadow:inset 0 4px 0 rgba(255,255,255,.35),0 4px 0 rgba(0,0,0,.35);transition:transform .12s}
+.tab:hover{transform:scale(1.05)}
+.tab[aria-selected=true]{outline:3px solid #fff;transform:scale(1.05)}
+.tab:nth-child(1){--g:linear-gradient(#ff3bf0,#b400d8)}
+.tab:nth-child(2){--g:linear-gradient(#53e8ff,#2a7bff)}
+.tab:nth-child(3){--g:linear-gradient(#ffc52e,#ff6a00)}
+.tab:nth-child(4){--g:linear-gradient(#18d9ff,#0090ff)}
+.panel{display:none;align-content:start;gap:14px}
+.panel.on{display:grid;animation:pop .2s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+.card{display:flex;align-items:center;gap:14px;padding:14px;border:3px solid var(--ink);border-radius:10px;background:var(--stud),linear-gradient(#c98a4b,#a8641f);box-shadow:inset 0 3px 0 rgba(255,255,255,.25),0 4px 0 rgba(0,0,0,.3)}
+.ic{flex:none;width:54px;height:54px;display:grid;place-items:center;border:3px solid var(--ink);border-radius:10px;background:var(--stud),var(--b,#ffc43a);box-shadow:inset 0 3px 0 rgba(255,255,255,.3)}.ic svg{width:32px;height:32px;display:block}
+.card .tx{flex:1;min-width:0}
+.card b{display:block;font-size:19px;font-weight:800;-webkit-text-stroke:4px #000;paint-order:stroke fill;overflow-wrap:anywhere}
+.card small{display:block;margin-top:2px;font-size:13px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.6);overflow-wrap:anywhere}
+.btn{flex:none;text-decoration:none;color:#fff;padding:9px 16px;border:3px solid var(--ink);border-radius:9px;font:800 16px Poppins,sans-serif;-webkit-text-stroke:3px #000;paint-order:stroke fill;background:var(--stud),linear-gradient(#8bf52a,#2fae0a);box-shadow:inset 0 3px 0 rgba(255,255,255,.4),0 3px 0 rgba(0,0,0,.4)}
+.btn:hover{filter:brightness(1.12)}
+.btn.off{background:var(--stud),linear-gradient(#ff5a5a,#c01818);pointer-events:none}
+.tag{display:inline-block;margin-left:6px;padding:1px 8px;border:2px solid var(--ink);border-radius:8px;background:#ff4a4a;font-size:11px;vertical-align:middle;-webkit-text-stroke:0}
+footer{margin-top:22px;text-align:center;font-size:14px;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+@media (max-width:640px){
+  .body{grid-template-columns:1fr}
+  .tabs{flex-direction:row;flex-wrap:wrap}.tab{flex:1 1 40%;font-size:16px}
+  .card{flex-wrap:wrap}.btn{margin-left:68px}
+  .bar h2{font-size:24px}
+}
 </style>
 </head>
 <body>
-<div class="bg"></div>
-<svg width="0" height="0" style="position:absolute"><defs>
-<symbol id="gh" viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></symbol>
-<symbol id="x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817-5.97 6.817H1.675l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
-<symbol id="tt" viewBox="0 0 24 24"><path d="M19.6 6.7a5 5 0 0 1-3.9-4.2h-3.3v13.4a2.8 2.8 0 1 1-2-2.7V9.8a6.1 6.1 0 1 0 5.3 6.1V9a8 8 0 0 0 4.6 1.5V7.2a4.8 4.8 0 0 1-.7-.5z"/></symbol>
-<symbol id="dc" viewBox="0 0 24 24"><path d="M20.3 4.4A19 19 0 0 0 15.6 3l-.2.4a17 17 0 0 1 4.2 1.5 14 14 0 0 0-11.2 0A17 17 0 0 1 12.6 3.4L12.4 3a19 19 0 0 0-4.7 1.4C4.7 8.9 3.9 13.3 4.3 17.6A19 19 0 0 0 10 20.5l.7-1.1a12 12 0 0 1-1.9-.9l.4-.4a13.5 13.5 0 0 0 11.6 0l.4.4c-.6.4-1.2.7-1.9.9l.7 1.1a19 19 0 0 0 5.7-2.9c.5-5-.8-9.3-3.4-13.2zM9.7 15c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z" transform="translate(-1.5 -.5) scale(1.06)"/></symbol>
-</defs></svg>
-
-<nav><div><a href="#about">About</a><a href="#focus">Focus</a><a href="#projects">Projects</a><a href="#stack">Stack</a><a href="#contact">Contact</a></div></nav>
-
+<div class="world"><div class="floor"></div><div class="cloud" style="top:8%"></div><div class="cloud" style="top:18%;animation-duration:90s;animation-delay:-40s;transform:scale(.7)"></div></div>
 <main>
-  <header class="hero rv" id="about">
-    <a class="av" href="https://github.com/izzyfrm" target="_blank" rel="noopener" aria-label="Isaiah B on GitHub"><b>IB</b><i><svg class="f"><use href="#gh"/></svg></i></a>
-    <div style="flex:1;min-width:260px">
-      <span class="status"><span class="dot"></span>Open to collaborations &amp; opportunities</span>
-      <h1>Isaiah B</h1>
-      <p class="role">AI Engineer + Full-Stack Developer</p>
-    </div>
-    <p class="bio" style="flex-basis:100%;margin:0">I build <b>AI-powered products</b> and <b>polished full-stack experiences</b> — from tweaking open-source models in Python, to shipping fast, clean web interfaces, to crafting Roblox GUI, scripting and VFX.</p>
-    <div class="btns" style="flex-basis:100%">
-      <a class="btn p" href="https://github.com/izzyfrm" target="_blank" rel="noopener"><svg class="f"><use href="#gh"/></svg>View GitHub</a>
-      <a class="btn" href="#contact"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>Get in touch</a>
-    </div>
+  <header class="hero">
+    <h1 class="t">Isaiah</h1>
+    <div class="pill t" style="-webkit-text-stroke:4px #000">AI Engineer · Game Developer · Web Developer</div>
   </header>
 
-  <section id="focus" class="rv">
-    <h2>What I Do</h2>
-    <div class="grid g3">
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h3>AI Engineering</h3><p>Building with and tweaking open-source AI models, with Python at the core.</p><span class="tag">Python · Open-source models</span></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg></div><h3>Full-Stack Development</h3><p>Clean, responsive web pages and apps, front to back.</p><span class="tag">TypeScript · React Native · SQLite</span></div>
-      <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 3 8v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8"/></svg></div><h3>Roblox Development</h3><p>Interface design, scripting and visual effects, plus a little animating.</p><span class="tag">Luau · GUI · VFX</span></div>
-    </div>
-  </section>
-
-  <section id="projects" class="rv">
-    <h2>Live Projects</h2>
-    <div class="grid g2">
-      <a class="card proj" href="https://raww.cloud" target="_blank" rel="noopener"><div><h3>raww.cloud</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-      <a class="card proj" href="https://dianoetic.tech" target="_blank" rel="noopener"><div><h3>dianoetic.tech</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-      <a class="card proj" href="https://gsea.site" target="_blank" rel="noopener"><div><h3>gsea.site</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-      <a class="card proj" href="https://depthnfl.com" target="_blank" rel="noopener"><div><h3>depthnfl.com</h3><p>Web project</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
-    </div>
-  </section>
-
-  <section id="stack" class="rv">
-    <h2>Tech Stack</h2>
-    <div class="stack">
-      <div class="card row"><span>Languages</span><div class="chips"><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Rust</span><span class="chip">Go</span><span class="chip">Luau</span><span class="chip">Bash</span></div></div>
-      <div class="card row"><span>Frontend</span><div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">React Native</span></div></div>
-      <div class="card row"><span>Data</span><div class="chips"><span class="chip">SQLite</span></div></div>
-      <div class="card row"><span>Tools</span><div class="chips"><span class="chip">Git &amp; GitHub</span><span class="chip">Cloudflare</span><span class="chip">VS Code</span><span class="chip">Claude Code</span></div></div>
-    </div>
-  </section>
-
-  <section class="rv">
-    <h2>Beyond Work</h2>
-    <div class="grid g3">
-      <div class="card"><h3>Roblox Projects</h3><p>GUI, scripting and VFX, with a little animating.</p></div>
-      <div class="card"><h3>Web Pages</h3><p>Designing and building clean, modern sites.</p></div>
-      <div class="card"><h3>AI Community</h3><p>Chatting about AI on X and Discord.</p></div>
-    </div>
-  </section>
-
-  <section id="contact" class="rv">
-    <div class="card cta">
-      <h2>Contact</h2>
-      <h3>Let’s build something great.</h3>
-      <p>Hiring, partnering, or just talking AI? Reach out on any platform below.</p>
-      <div class="btns">
-        <a class="btn p" href="https://x.com/IsaiahSrc" target="_blank" rel="noopener"><svg class="f"><use href="#x"/></svg>Message on X</a>
-        <a class="btn" href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener"><svg class="f"><use href="#dc"/></svg>Discord</a>
+  <section class="window" id="win">
+    <div class="bar"><h2 class="t">Portfolio</h2><button class="x t" id="close" aria-label="Collapse window" style="-webkit-text-stroke:4px #000">X</button></div>
+    <div class="body">
+      <div class="tabs" role="tablist">
+        <button class="tab t" role="tab" aria-selected="true" data-p="projects">Projects</button>
+        <button class="tab t" role="tab" aria-selected="false" data-p="work">My Work</button>
+        <button class="tab t" role="tab" aria-selected="false" data-p="connect">Connect</button>
+        <button class="tab t" role="tab" aria-selected="false" data-p="mail">Email</button>
       </div>
-      <div class="soc">
-        <a href="https://github.com/izzyfrm" target="_blank" rel="noopener" aria-label="GitHub"><svg class="f"><use href="#gh"/></svg></a>
-        <a href="https://x.com/IsaiahSrc" target="_blank" rel="noopener" aria-label="X"><svg class="f"><use href="#x"/></svg></a>
-        <a href="https://tiktok.com/@izzyytech" target="_blank" rel="noopener" aria-label="TikTok"><svg class="f"><use href="#tt"/></svg></a>
-        <a href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener" aria-label="Discord"><svg class="f"><use href="#dc"/></svg></a>
+
+      <div class="panel on" id="projects">
+        <div class="card"><div class="ic" style="--b:linear-gradient(#b36bff,#6a2de0)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3l2.2 6.8L19 12l-6.8 2.2L10 21l-2.2-6.8L1 12l6.8-2.2L10 3Z" fill="#fff"/><path d="M19 2l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z" fill="#ffe14d"/></svg></div><div class="tx"><b>Dianoetic</b><small>Personal AI</small></div><a class="btn" href="https://dianoetic.tech" target="_blank" rel="noopener">Visit</a></div>
+        <div class="card"><div class="ic" style="--b:linear-gradient(#4ec2ff,#1f6bff)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5C5 4 9 4 12 6v14c-3-2-7-2-10-.5v-14Z" fill="#fff"/><path d="M22 5.5C19 4 15 4 12 6v14c3-2 7-2 10-.5v-14Z" fill="#ffe14d"/></svg></div><div class="tx"><b>roblox-ai</b><small>Roblox references repo for Roblox developers</small></div><a class="btn" href="https://github.com/izzyfrm/roblox-ai" target="_blank" rel="noopener">Open</a></div>
+        <div class="card"><div class="ic" style="--b:linear-gradient(#f2e35a,#c9ae1d)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="1.5" fill="#7a3f1b" stroke="#2b1204" stroke-width="1.5"/><rect x="8" y="5" width="8" height="5" rx="1" fill="#a85209"/><rect x="8" y="12" width="8" height="7" rx="1" fill="#a85209"/><circle cx="16.5" cy="11.5" r="1.3" fill="#ffe14d"/></svg></div><div class="tx"><b>Backrooms<span class="tag">Closed</span></b><small>Backrooms Roblox game</small></div><a class="btn" href="https://www.roblox.com/games/99841965770897/Backrooms" target="_blank" rel="noopener">View</a></div>
+      </div>
+
+      <div class="panel" id="work">
+        <div class="card"><div class="ic" style="--b:linear-gradient(#3a424c,#161b22)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg></div><div class="tx"><b>GitHub</b><small>Find my work at github.com/izzyfrm</small></div><a class="btn" href="https://github.com/izzyfrm" target="_blank" rel="noopener">Browse</a></div>
+      </div>
+
+      <div class="panel" id="connect">
+        <div class="card"><div class="ic" style="--b:linear-gradient(#3a424c,#161b22)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg></div><div class="tx"><b>GitHub</b><small>izzyfrm</small></div><a class="btn" href="https://github.com/izzyfrm" target="_blank" rel="noopener">Follow</a></div>
+        <div class="card"><div class="ic" style="--b:linear-gradient(#2b2b2b,#000)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8-9.2L1.2 2h7l4.8 6.3L18.9 2Zm-1.2 18h1.7L6.6 3.9H4.8L17.7 20Z"/></svg></div><div class="tx"><b>X</b><small>@IsaiahSrc</small></div><a class="btn" href="https://x.com/IsaiahSrc" target="_blank" rel="noopener">Follow</a></div>
+        <div class="card"><div class="ic" style="--b:linear-gradient(#2b2b2b,#000)"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><path id="tt" d="M16.6 2h-3.2v13.2a2.9 2.9 0 1 1-2-2.76V9.1a6.2 6.2 0 1 0 5.2 6.1V8.6a7.6 7.6 0 0 0 4.4 1.4V6.8a4.4 4.4 0 0 1-4.4-4.8Z"/></defs><use href="#tt" fill="#25f4ee" x="-.9" y="-.9"/><use href="#tt" fill="#fe2c55" x=".9" y=".9"/><use href="#tt" fill="#fff"/></svg></div><div class="tx"><b>TikTok</b><small>@izzyytech</small></div><a class="btn" href="https://tiktok.com/@izzyytech" target="_blank" rel="noopener">Follow</a></div>
+        <div class="card"><div class="ic" style="--b:linear-gradient(#2f8de4,#0a66c2)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4V9.5Z"/></svg></div><div class="tx"><b>LinkedIn</b><small>Isaiah Boyd</small></div><a class="btn" href="https://www.linkedin.com/in/isaiah-boyd-828a0941a/" target="_blank" rel="noopener">Connect</a></div>
+      </div>
+
+      <div class="panel" id="mail">
+        <div class="card"><div class="ic" style="--b:linear-gradient(#ff6a5c,#d93025)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5" fill="#fff"/><path d="M3.5 7.5L12 13.5l8.5-6" stroke="#ea4335" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tx"><b>Email</b><small>isaiahboyd84@gmail.com</small></div><a class="btn" href="mailto:isaiahboyd84@gmail.com">Send</a></div>
+        <div class="card"><div class="ic" style="--b:linear-gradient(#6ab0ff,#2f6fe0)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5" fill="#fff"/><path d="M3.5 7.5L12 13.5l8.5-6" stroke="#4285f4" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tx"><b>Email (alt)</b><small>izzyyggs@gmail.com</small></div><a class="btn" href="mailto:izzyyggs@gmail.com">Send</a></div>
       </div>
     </div>
   </section>
-  <footer>© <span id="y">2026</span> Isaiah B</footer>
+  <footer>© Isaiah · Built block by block</footer>
 </main>
 <script>
-document.getElementById('y').textContent=new Date().getFullYear();
-var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08});
-document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+const tabs=document.querySelectorAll('.tab'),panels=document.querySelectorAll('.panel');
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.setAttribute('aria-selected',x===t));
+  panels.forEach(p=>p.classList.toggle('on',p.id===t.dataset.p));
+}));
+const win=document.getElementById('win');
+document.getElementById('close').addEventListener('click',()=>win.classList.toggle('closed'));
 </script>
 </body>
 </html>
