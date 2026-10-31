@@ -45,6 +45,15 @@ main{max-width:860px;margin:0 auto;padding:28px 16px 48px}
 .tab:nth-child(2){--g:linear-gradient(#53e8ff,#2a7bff)}
 .tab:nth-child(3){--g:linear-gradient(#ffc52e,#ff6a00)}
 .tab:nth-child(4){--g:linear-gradient(#18d9ff,#0090ff)}
+.tab:nth-child(5){--g:linear-gradient(#8bf52a,#2fae0a)}
+.sh{margin:0 0 2px;font-size:26px;-webkit-text-stroke:5px #000}
+.stat{display:flex;align-items:center;gap:18px;padding:14px 18px;border:3px solid var(--ink);border-radius:10px;background:var(--stud),linear-gradient(#3a2210,#1d0f05);box-shadow:inset 0 3px 0 rgba(255,255,255,.12),0 4px 0 rgba(0,0,0,.3)}
+.stat .num{font-size:clamp(44px,10vw,64px);line-height:1;color:#8bf52a;-webkit-text-stroke:6px #000}
+.stat .sl{font-size:14px;line-height:1.35;text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid2 .card{align-items:flex-start}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+.chips span{padding:5px 12px;border:3px solid var(--ink);border-radius:999px;font-size:13px;background:var(--stud),linear-gradient(#5a5f6b,#2d3038);text-shadow:0 2px 0 rgba(0,0,0,.7);box-shadow:inset 0 2px 0 rgba(255,255,255,.25)}
 .panel{display:none;align-content:start;gap:14px}
 .panel.on{display:grid;animation:pop .2s ease-out}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}}
@@ -58,11 +67,22 @@ main{max-width:860px;margin:0 auto;padding:28px 16px 48px}
 .btn.off{background:var(--stud),linear-gradient(#ff5a5a,#c01818);pointer-events:none}
 .tag{display:inline-block;margin-left:6px;padding:1px 8px;border:2px solid var(--ink);border-radius:8px;background:#ff4a4a;font-size:11px;vertical-align:middle;-webkit-text-stroke:0}
 footer{margin-top:22px;text-align:center;font-size:14px;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+.lanyard{display:flex;flex-direction:column;align-items:center;margin-top:6px;transform-origin:50% 0;animation:swing 5s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.lanyard{animation:none}}
+.strap{width:28px;height:80px;border:3px solid var(--ink);border-top:0;border-radius:0 0 4px 4px;background:repeating-linear-gradient(#5865f2 0 14px,#4752c4 14px 17px)}
+.clip{width:42px;height:22px;margin-top:-3px;border:3px solid var(--ink);border-radius:6px;background:linear-gradient(#f1f3f8,#9aa0ad)}
+.badge{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:-4px;padding:16px 30px 18px;border:3px solid var(--ink);border-radius:14px;text-decoration:none;color:#fff;background:var(--stud),linear-gradient(#7a86ff,#5865f2 60%,#3e49c9);box-shadow:inset 0 4px 0 rgba(255,255,255,.3),0 6px 0 rgba(0,0,0,.3)}
+.badge:hover{filter:brightness(1.1)}
+.badge .hole{width:46px;height:9px;border:3px solid var(--ink);border-radius:6px;background:rgba(0,0,0,.45)}
+.badge b{font-size:24px;-webkit-text-stroke:5px #000;paint-order:stroke fill}
+.badge small{font-size:12px;text-shadow:0 2px 0 rgba(0,0,0,.7)}
 @media (max-width:640px){
   .body{grid-template-columns:1fr}
   .tabs{flex-direction:row;flex-wrap:wrap}.tab{flex:1 1 40%;font-size:16px}
   .card{flex-wrap:wrap}.btn{margin-left:68px}
   .bar h2{font-size:24px}
+  .grid2{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -72,6 +92,7 @@ footer{margin-top:22px;text-align:center;font-size:14px;text-shadow:0 2px 0 rgba
   <header class="hero">
     <h1 class="t">Isaiah</h1>
     <div class="pill t" style="-webkit-text-stroke:4px #000">AI Engineer · Game Developer · Web Developer</div>
+    <div class="chips"><span>1.1M+ Combined Visits</span><span>Luau · Python · JavaScript</span><span>Roblox · Web · AI</span></div>
   </header>
 
   <section class="window" id="win">
@@ -79,15 +100,27 @@ footer{margin-top:22px;text-align:center;font-size:14px;text-shadow:0 2px 0 rgba
     <div class="body">
       <div class="tabs" role="tablist">
         <button class="tab t" role="tab" aria-selected="true" data-p="projects">Projects</button>
+        <button class="tab t" role="tab" aria-selected="false" data-p="exp">Experience</button>
         <button class="tab t" role="tab" aria-selected="false" data-p="work">My Work</button>
         <button class="tab t" role="tab" aria-selected="false" data-p="connect">Connect</button>
-        <button class="tab t" role="tab" aria-selected="false" data-p="mail">Email</button>
+        <button class="tab t" role="tab" aria-selected="false" data-p="mail">Contact</button>
       </div>
 
       <div class="panel on" id="projects">
         <div class="card"><div class="ic" style="--b:linear-gradient(#b36bff,#6a2de0)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3l2.2 6.8L19 12l-6.8 2.2L10 21l-2.2-6.8L1 12l6.8-2.2L10 3Z" fill="#fff"/><path d="M19 2l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z" fill="#ffe14d"/></svg></div><div class="tx"><b>Dianoetic</b><small>Personal AI</small></div><a class="btn" href="https://dianoetic.tech" target="_blank" rel="noopener">Visit</a></div>
         <div class="card"><div class="ic" style="--b:linear-gradient(#4ec2ff,#1f6bff)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5C5 4 9 4 12 6v14c-3-2-7-2-10-.5v-14Z" fill="#fff"/><path d="M22 5.5C19 4 15 4 12 6v14c3-2 7-2 10-.5v-14Z" fill="#ffe14d"/></svg></div><div class="tx"><b>roblox-ai</b><small>Roblox references repo for Roblox developers</small></div><a class="btn" href="https://github.com/izzyfrm/roblox-ai" target="_blank" rel="noopener">Open</a></div>
         <div class="card"><div class="ic" style="--b:linear-gradient(#f2e35a,#c9ae1d)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="1.5" fill="#7a3f1b" stroke="#2b1204" stroke-width="1.5"/><rect x="8" y="5" width="8" height="5" rx="1" fill="#a85209"/><rect x="8" y="12" width="8" height="7" rx="1" fill="#a85209"/><circle cx="16.5" cy="11.5" r="1.3" fill="#ffe14d"/></svg></div><div class="tx"><b>Backrooms<span class="tag">Closed</span></b><small>Backrooms Roblox game</small></div><a class="btn" href="https://www.roblox.com/games/99841965770897/Backrooms" target="_blank" rel="noopener">View</a></div>
+      </div>
+
+      <div class="panel" id="exp">
+        <h3 class="t sh">Roblox Experience</h3>
+        <div class="stat"><div class="num t">1.1M+</div><div class="sl">Visits contributed to<br>(combined across experiences)</div></div>
+        <div class="grid2">
+          <div class="card"><div class="ic" style="--b:linear-gradient(#ff5ce1,#a100d6)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2.5" fill="#fff"/><rect x="2.5" y="4" width="19" height="4.5" rx="2" fill="#8bf52a"/><rect x="5" y="11" width="6" height="6" rx="1" fill="#ff5ce1"/><rect x="13" y="11" width="6" height="2" rx="1" fill="#2a7bff"/><rect x="13" y="15" width="6" height="2" rx="1" fill="#ffa31a"/></svg></div><div class="tx"><b>GUI</b><small>Interfaces, HUDs and menus</small></div></div>
+          <div class="card"><div class="ic" style="--b:linear-gradient(#ffb020,#ff5a00)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-4 3-7 1 1 2 2 2.2 3.2C12 8 12.4 5 12 2Z" fill="#fff"/><path d="M12 12c.6 2 3 2.6 3 5a3 3 0 0 1-6 0c0-2 2-2.6 3-5Z" fill="#ffd23a"/></svg></div><div class="tx"><b>VFX</b><small>Particles and visual effects</small></div></div>
+          <div class="card"><div class="ic" style="--b:linear-gradient(#53e8ff,#2a7bff)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3" fill="#fff"/><path d="M10 8.5v7l6-3.5-6-3.5Z" fill="#2a7bff"/></svg></div><div class="tx"><b>Animations</b><small>Character and object motion</small></div></div>
+          <div class="card"><div class="ic" style="--b:linear-gradient(#8bf52a,#1f9a0a)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.5 4l-3 16" stroke="#ffe14d" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="tx"><b>Scripting</b><small>Luau systems and gameplay</small></div></div>
+        </div>
       </div>
 
       <div class="panel" id="work">
@@ -99,6 +132,7 @@ footer{margin-top:22px;text-align:center;font-size:14px;text-shadow:0 2px 0 rgba
         <div class="card"><div class="ic" style="--b:linear-gradient(#2b2b2b,#000)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8-9.2L1.2 2h7l4.8 6.3L18.9 2Zm-1.2 18h1.7L6.6 3.9H4.8L17.7 20Z"/></svg></div><div class="tx"><b>X</b><small>@IsaiahSrc</small></div><a class="btn" href="https://x.com/IsaiahSrc" target="_blank" rel="noopener">Follow</a></div>
         <div class="card"><div class="ic" style="--b:linear-gradient(#2b2b2b,#000)"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><path id="tt" d="M16.6 2h-3.2v13.2a2.9 2.9 0 1 1-2-2.76V9.1a6.2 6.2 0 1 0 5.2 6.1V8.6a7.6 7.6 0 0 0 4.4 1.4V6.8a4.4 4.4 0 0 1-4.4-4.8Z"/></defs><use href="#tt" fill="#25f4ee" x="-.9" y="-.9"/><use href="#tt" fill="#fe2c55" x=".9" y=".9"/><use href="#tt" fill="#fff"/></svg></div><div class="tx"><b>TikTok</b><small>@izzyytech</small></div><a class="btn" href="https://tiktok.com/@izzyytech" target="_blank" rel="noopener">Follow</a></div>
         <div class="card"><div class="ic" style="--b:linear-gradient(#2f8de4,#0a66c2)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4V9.5Z"/></svg></div><div class="tx"><b>LinkedIn</b><small>Isaiah Boyd</small></div><a class="btn" href="https://www.linkedin.com/in/isaiah-boyd-828a0941a/" target="_blank" rel="noopener">Connect</a></div>
+        <div class="card"><div class="ic" style="--b:linear-gradient(#7a86ff,#4752c4)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.07.07 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.3 18.3 0 0 0-5.487 0 12.6 12.6 0 0 0-.617-1.25.08.08 0 0 0-.079-.037A19.7 19.7 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.08.08 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.8 19.8 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03ZM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg></div><div class="tx"><b>Discord</b><small>Message me directly</small></div><a class="btn" href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener">Add</a></div>
       </div>
 
       <div class="panel" id="mail">
@@ -107,7 +141,8 @@ footer{margin-top:22px;text-align:center;font-size:14px;text-shadow:0 2px 0 rgba
       </div>
     </div>
   </section>
-  <footer>© Isaiah · Built block by block</footer>
+  <footer>© 2026 Isaiah · AI Engineer · Game Developer · Web Developer</footer>
+  <section class="lanyard" aria-label="Discord lanyard"><div class="strap"></div><div class="clip"></div><a class="badge" href="https://discord.com/users/1313630076809510975" target="_blank" rel="noopener"><span class="hole"></span><div class="ic" style="--b:linear-gradient(#2b2d31,#111214)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#5865f2" d="M20.317 4.37a19.8 19.8 0 0 0-4.885-1.515.07.07 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.3 18.3 0 0 0-5.487 0 12.6 12.6 0 0 0-.617-1.25.08.08 0 0 0-.079-.037A19.7 19.7 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.08.08 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.8 19.8 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03ZM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg></div><b>Isaiah</b><small>Discord · ID 1313630076809510975</small></a></section>
 </main>
 <script>
 const tabs=document.querySelectorAll('.tab'),panels=document.querySelectorAll('.panel');
