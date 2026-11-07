@@ -1,0 +1,9 @@
+# Files that are code/config, not part of the public website
+functions
+src
+wrangler.jsonc
+.assetsignore
+SAUCE-SETUP.md
+node_modules
+.wrangler
+.git
