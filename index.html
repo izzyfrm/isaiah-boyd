@@ -65,7 +65,8 @@
   .skip:focus { top: 12px; }
 
   /* ---------- layout ---------- */
-  .page { width: min(1180px, 100% - 64px); margin-inline: auto; display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 72px; padding: 64px 0 80px; }
+  #bg3d { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .page { position: relative; z-index: 1; width: min(1180px, 100% - 64px); margin-inline: auto; display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 72px; padding: 64px 0 80px; }
   .side { position: sticky; top: 64px; align-self: start; }
   .main { display: flex; flex-direction: column; gap: 88px; min-width: 0; }
 
@@ -241,6 +242,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js [data-r] { opacity: 1; transform: none; transition: none; }
+    #bg3d { display: none; }
     .bar, .tk i, .btn, .copy { transition: none; }
     .js .chart:not(.in) .bar { transform: none; }
   }
@@ -250,6 +252,7 @@
 </script>
 </head>
 <body>
+<canvas id="bg3d" aria-hidden="true"></canvas>
 <a class="skip" href="#work">Skip to content</a>
 
 <div class="page">
@@ -468,6 +471,93 @@
       document.body.removeChild(ta); done(ok);
     }
   });
+})();
+</script>
+<script type="module">
+/* Ambient three.js starfield behind the page. Pinned version, no build step. */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
+
+(function () {
+  var canvas = document.getElementById('bg3d');
+  if (!canvas) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
+  } catch (e) {
+    canvas.style.display = 'none';
+    return; // no WebGL: the page still works without the background
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setClearColor(0x000000, 0);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+  camera.position.z = 14;
+
+  var COUNT = 900;
+  var pos = new Float32Array(COUNT * 3);
+  var speed = new Float32Array(COUNT);
+  var i;
+  for (i = 0; i < COUNT; i++) {
+    pos[i * 3]     = (Math.random() - 0.5) * 34;
+    pos[i * 3 + 1] = (Math.random() - 0.5) * 22;
+    pos[i * 3 + 2] = (Math.random() - 0.5) * 30;
+    speed[i] = 0.2 + Math.random() * 0.8;
+  }
+  var geo = new THREE.BufferGeometry();
+  var posAttr = new THREE.BufferAttribute(pos, 3);
+  posAttr.setUsage(THREE.DynamicDrawUsage);
+  geo.setAttribute('position', posAttr);
+  var mat = new THREE.PointsMaterial({
+    color: 0xffffff, size: 0.05, transparent: true, opacity: 0.4, depthWrite: false, sizeAttenuation: true,
+  });
+  scene.add(new THREE.Points(geo, mat));
+
+  var targetX = 0, targetY = 0, curX = 0, curY = 0;
+  if (!reduce) {
+    window.addEventListener('pointermove', function (e) {
+      targetX = e.clientX / window.innerWidth - 0.5;
+      targetY = e.clientY / window.innerHeight - 0.5;
+    }, { passive: true });
+  }
+
+  function resize() {
+    var w = window.innerWidth, h = window.innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function update() {
+    var arr = posAttr.array;
+    for (var j = 0; j < COUNT; j++) {
+      arr[j * 3 + 1] += speed[j] * 0.002;
+      if (arr[j * 3 + 1] > 11) arr[j * 3 + 1] = -11;
+    }
+    posAttr.needsUpdate = true;
+    curX += (targetX - curX) * 0.03;
+    curY += (targetY - curY) * 0.03;
+    camera.position.x = curX * 2;
+    camera.position.y = -curY * 1.5;
+    camera.lookAt(0, 0, 0);
+  }
+
+  function loop() {
+    update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(loop);
+  }
+
+  if (reduce) {
+    // Static frame only, no motion
+    renderer.render(scene, camera);
+  } else {
+    loop();
+  }
 })();
 </script>
 </body>
